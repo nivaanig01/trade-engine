@@ -70,10 +70,21 @@ int main() {
    // sellOrders.push({110, 3, false});
    // sellOrders.push({108, 4, false});
 
+    //buyOrders.push({105, 5, true});
+    //sellOrders.push({100, 3, false});
+    
     buyOrders.push({105, 5, true});
-    sellOrders.push({100, 3, false});
+    buyOrders.push({102, 4, true});
+    buyOrders.push({100, 6, true});
+
+    sellOrders.push({101, 3, false});
+    sellOrders.push({103, 2, false});
+    sellOrders.push({99, 5, false});
 
     matchOrders(buyOrders, sellOrders);
+
+    cout << "\nRemaining Buy Orders: " << buyOrders.size() << endl;
+    cout << "Remaining Sell Orders: " << sellOrders.size() << endl;
 
 
    // cout << "Top Buy: " << buyOrders.top().price << endl;

@@ -2,22 +2,32 @@
 using namespace std;
 
 struct Order {
+    int id;
     int price;
     int quantity;
-    bool isBuy; // true = buy, false = sell
+    bool isBuy;
+    int timestamp;
 };
 
 // Comparator for BUY (max heap)
 struct BuyCompare {
     bool operator()(Order a, Order b) {
-        return a.price < b.price;
+        if (a.price == b.price) {
+    return a.timestamp > b.timestamp;
+}
+
+return a.price < b.price;
     }
 };
 
 // Comparator for SELL (min heap)
 struct SellCompare {
     bool operator()(Order a, Order b) {
-        return a.price > b.price;
+        if (a.price == b.price) {
+    return a.timestamp > b.timestamp;
+}
+
+return a.price > b.price;
     }
 };
 
@@ -53,8 +63,15 @@ void matchOrders(
 
         int tradeQty = min(buy.quantity, sell.quantity);
 
-        cout << "Trade executed: " << tradeQty 
-             << " units at price " << sell.price << endl;
+             cout << "Trade executed between BUY ID "
+     << buy.id
+     << " and SELL ID "
+     << sell.id
+     << " for "
+     << tradeQty
+     << " units at price "
+     << sell.price
+     << endl;
 
         // Update remaining quantity
         buy.quantity -= tradeQty;
@@ -86,14 +103,14 @@ int main() {
     //buyOrders.push({105, 5, true});
     //sellOrders.push({100, 3, false});
     
-    Order b1 = {105, 5, true};
-Order b2 = {102, 4, true};
+    Order b1 = {1, 105, 5, true, 1};
+Order b2 = {2, 102, 4, true, 2};
 
-Order s1 = {99, 5, false};
-Order s2 = {101, 3, false};
+Order s1 = {3, 99, 5, false, 3};
+Order s2 = {4, 101, 3, false, 4};
 
-Order bad1 = {-100, 5, true};
-Order bad2 = {100, -3, false};
+Order bad1 = {5, -100, 5, true, 5};
+Order bad2 = {6, 100, -3, false, 6};
 
 if (isValidOrder(b1)) {
     buyOrders.push(b1);

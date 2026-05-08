@@ -21,6 +21,19 @@ struct SellCompare {
     }
 };
 
+bool isValidOrder(Order order) {
+
+    if (order.price <= 0) {
+        return false;
+    }
+
+    if (order.quantity <= 0) {
+        return false;
+    }
+
+    return true;
+}
+
 void matchOrders(
     priority_queue<Order, vector<Order>, BuyCompare>& buyOrders,
     priority_queue<Order, vector<Order>, SellCompare>& sellOrders
@@ -73,13 +86,56 @@ int main() {
     //buyOrders.push({105, 5, true});
     //sellOrders.push({100, 3, false});
     
-    buyOrders.push({105, 5, true});
-    buyOrders.push({102, 4, true});
-    buyOrders.push({100, 6, true});
+    Order b1 = {105, 5, true};
+Order b2 = {102, 4, true};
 
-    sellOrders.push({101, 3, false});
-    sellOrders.push({103, 2, false});
-    sellOrders.push({99, 5, false});
+Order s1 = {99, 5, false};
+Order s2 = {101, 3, false};
+
+Order bad1 = {-100, 5, true};
+Order bad2 = {100, -3, false};
+
+if (isValidOrder(b1)) {
+    buyOrders.push(b1);
+}
+else {
+    cout << "Invalid Buy Order" << endl;
+}
+
+if (isValidOrder(b2)) {
+    buyOrders.push(b2);
+}
+else {
+    cout << "Invalid Buy Order" << endl;
+}
+
+if (isValidOrder(s1)) {
+    sellOrders.push(s1);
+}
+else {
+    cout << "Invalid Sell Order" << endl;
+}
+
+if (isValidOrder(s2)) {
+    sellOrders.push(s2);
+}
+else {
+    cout << "Invalid Sell Order" << endl;
+}
+
+if (isValidOrder(bad1)) {
+    buyOrders.push(bad1);
+}
+else {
+    cout << "Invalid Buy Order" << endl;
+}
+
+if (isValidOrder(bad2)) {
+    sellOrders.push(bad2);
+}
+else {
+    cout << "Invalid Sell Order" << endl;
+}
 
     matchOrders(buyOrders, sellOrders);
 
@@ -89,6 +145,14 @@ int main() {
 
    // cout << "Top Buy: " << buyOrders.top().price << endl;
    // cout << "Top Sell: " << sellOrders.top().price << endl;
+
+   if (buyOrders.empty()) {
+    cout << "No remaining buy orders" << endl;
+}
+
+if (sellOrders.empty()) {
+    cout << "No remaining sell orders" << endl;
+}
 
     return 0;
 }

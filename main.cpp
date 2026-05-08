@@ -88,6 +88,32 @@ void matchOrders(
     }
 }
 
+void addBuyOrder(
+    priority_queue<Order, vector<Order>, BuyCompare>& buyOrders,
+    Order order
+) {
+
+    if (isValidOrder(order)) {
+        buyOrders.push(order);
+    }
+    else {
+        cout << "Invalid Buy Order" << endl;
+    }
+}
+
+void addSellOrder(
+    priority_queue<Order, vector<Order>, SellCompare>& sellOrders,
+    Order order
+) {
+
+    if (isValidOrder(order)) {
+        sellOrders.push(order);
+    }
+    else {
+        cout << "Invalid Sell Order" << endl;
+    }
+}
+
 int main() {
 
     priority_queue<Order, vector<Order>, BuyCompare> buyOrders;
@@ -112,47 +138,14 @@ Order s2 = {4, 101, 3, false, 4};
 Order bad1 = {5, -100, 5, true, 5};
 Order bad2 = {6, 100, -3, false, 6};
 
-if (isValidOrder(b1)) {
-    buyOrders.push(b1);
-}
-else {
-    cout << "Invalid Buy Order" << endl;
-}
+addBuyOrder(buyOrders, b1);
+addBuyOrder(buyOrders, b2);
 
-if (isValidOrder(b2)) {
-    buyOrders.push(b2);
-}
-else {
-    cout << "Invalid Buy Order" << endl;
-}
+addSellOrder(sellOrders, s1);
+addSellOrder(sellOrders, s2);
 
-if (isValidOrder(s1)) {
-    sellOrders.push(s1);
-}
-else {
-    cout << "Invalid Sell Order" << endl;
-}
-
-if (isValidOrder(s2)) {
-    sellOrders.push(s2);
-}
-else {
-    cout << "Invalid Sell Order" << endl;
-}
-
-if (isValidOrder(bad1)) {
-    buyOrders.push(bad1);
-}
-else {
-    cout << "Invalid Buy Order" << endl;
-}
-
-if (isValidOrder(bad2)) {
-    sellOrders.push(bad2);
-}
-else {
-    cout << "Invalid Sell Order" << endl;
-}
+addBuyOrder(buyOrders, bad1);
+addSellOrder(sellOrders, bad2);
 
     matchOrders(buyOrders, sellOrders);
 

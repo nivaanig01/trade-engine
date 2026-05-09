@@ -114,6 +114,44 @@ void addSellOrder(
     }
 }
 
+void displayBuyOrders(
+    priority_queue<Order, vector<Order>, BuyCompare> buyOrders
+) {
+
+    cout << "\nBuy Orders:\n";
+
+    while (!buyOrders.empty()) {
+
+        Order order = buyOrders.top();
+
+        cout << "ID: " << order.id
+             << " Price: " << order.price
+             << " Qty: " << order.quantity
+             << endl;
+
+        buyOrders.pop();
+    }
+}
+
+void displaySellOrders(
+    priority_queue<Order, vector<Order>, SellCompare> sellOrders
+) {
+
+    cout << "\nSell Orders:\n";
+
+    while (!sellOrders.empty()) {
+
+        Order order = sellOrders.top();
+
+        cout << "ID: " << order.id
+             << " Price: " << order.price
+             << " Qty: " << order.quantity
+             << endl;
+
+        sellOrders.pop();
+    }
+}
+
 int main() {
 
     priority_queue<Order, vector<Order>, BuyCompare> buyOrders;
@@ -149,8 +187,8 @@ addSellOrder(sellOrders, bad2);
 
     matchOrders(buyOrders, sellOrders);
 
-    cout << "\nRemaining Buy Orders: " << buyOrders.size() << endl;
-    cout << "Remaining Sell Orders: " << sellOrders.size() << endl;
+    displayBuyOrders(buyOrders);
+    displaySellOrders(sellOrders);
 
 
    // cout << "Top Buy: " << buyOrders.top().price << endl;

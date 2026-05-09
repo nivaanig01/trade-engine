@@ -63,7 +63,7 @@ void matchOrders(
 
         int tradeQty = min(buy.quantity, sell.quantity);
 
-             cout << "Trade executed between BUY ID "
+             cout << "\nTrade executed between BUY ID "
      << buy.id
      << " and SELL ID "
      << sell.id
@@ -157,45 +157,53 @@ int main() {
     priority_queue<Order, vector<Order>, BuyCompare> buyOrders;
     priority_queue<Order, vector<Order>, SellCompare> sellOrders;
 
-    // Add some test orders
-   // buyOrders.push({100, 5, true});
-   // buyOrders.push({105, 2, true});
+    int n;
+cout << "Enter number of orders: ";
+cin >> n;
 
-   // sellOrders.push({110, 3, false});
-   // sellOrders.push({108, 4, false});
+for (int i = 1; i <= n; i++) {
 
-    //buyOrders.push({105, 5, true});
-    //sellOrders.push({100, 3, false});
+    char type;
+    int price;
+    int quantity;
+
+    cout << "\nEnter order type (B/S): ";
+    cin >> type;
+
+    cout << "Enter price: ";
+    cin >> price;
+
+    cout << "Enter quantity: ";
+    cin >> quantity;
+
+    bool isBuy = (type == 'B' || type == 'b');
+
+Order order = {i, price, quantity, isBuy, i};
+
+    if (type == 'B' || type == 'b') {
+
+    addBuyOrder(buyOrders, order);
+
+}
+else if (type == 'S' || type == 's') {
+
+    addSellOrder(sellOrders, order);
+
+}
+else {
+
+    cout << "Invalid Order Type" << endl;
+
+}
+    }
     
-    Order b1 = {1, 105, 5, true, 1};
-Order b2 = {2, 102, 4, true, 2};
-
-Order s1 = {3, 99, 5, false, 3};
-Order s2 = {4, 101, 3, false, 4};
-
-Order bad1 = {5, -100, 5, true, 5};
-Order bad2 = {6, 100, -3, false, 6};
-
-addBuyOrder(buyOrders, b1);
-addBuyOrder(buyOrders, b2);
-
-addSellOrder(sellOrders, s1);
-addSellOrder(sellOrders, s2);
-
-addBuyOrder(buyOrders, bad1);
-addSellOrder(sellOrders, bad2);
-
     matchOrders(buyOrders, sellOrders);
 
     displayBuyOrders(buyOrders);
     displaySellOrders(sellOrders);
 
-
-   // cout << "Top Buy: " << buyOrders.top().price << endl;
-   // cout << "Top Sell: " << sellOrders.top().price << endl;
-
    if (buyOrders.empty()) {
-    cout << "No remaining buy orders" << endl;
+    cout << "\n2No remaining buy orders" << endl;
 }
 
 if (sellOrders.empty()) {

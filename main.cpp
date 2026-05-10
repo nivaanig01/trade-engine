@@ -1,4 +1,5 @@
 #include <bits/stdc++.h>
+#include <fstream>
 using namespace std;
 
 struct Order {
@@ -177,6 +178,8 @@ int main() {
 
     vector<Trade> trades;
 
+    ofstream outFile("trades.txt");
+
     int n;
 cout << "Enter number of orders: ";
 cin >> n;
@@ -239,7 +242,15 @@ for (Trade trade : trades) {
          << " Price: " << trade.price
          << " Qty: " << trade.quantity
          << endl;
+
+         outFile << "BUY ID: " << trade.buyId
+        << " SELL ID: " << trade.sellId
+        << " Price: " << trade.price
+        << " Qty: " << trade.quantity
+        << endl;
 }
+
+outFile.close();
 
     return 0;
 }

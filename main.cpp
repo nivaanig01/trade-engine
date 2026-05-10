@@ -9,6 +9,13 @@ struct Order {
     int timestamp;
 };
 
+struct Trade {
+    int buyId;
+    int sellId;
+    int price;
+    int quantity;
+};
+
 // Comparator for BUY (max heap)
 struct BuyCompare {
     bool operator()(Order a, Order b) {
@@ -46,8 +53,10 @@ bool isValidOrder(Order order) {
 
 void matchOrders(
     priority_queue<Order, vector<Order>, BuyCompare>& buyOrders,
-    priority_queue<Order, vector<Order>, SellCompare>& sellOrders
-) {
+    priority_queue<Order, vector<Order>, SellCompare>& sellOrders,
+    vector<Trade>& trades
+)
+ {
     while (!buyOrders.empty() && !sellOrders.empty()) {
 
         Order buy = buyOrders.top();
@@ -62,6 +71,15 @@ void matchOrders(
         sellOrders.pop();
 
         int tradeQty = min(buy.quantity, sell.quantity);
+
+Trade trade = {
+    buy.id,
+    sell.id,
+    sell.price,
+    tradeQty
+};
+
+trades.push_back(trade);
 
              cout << "\nTrade executed between BUY ID "
      << buy.id
@@ -157,6 +175,8 @@ int main() {
     priority_queue<Order, vector<Order>, BuyCompare> buyOrders;
     priority_queue<Order, vector<Order>, SellCompare> sellOrders;
 
+    vector<Trade> trades;
+
     int n;
 cout << "Enter number of orders: ";
 cin >> n;
@@ -197,17 +217,28 @@ else {
 }
     }
     
-    matchOrders(buyOrders, sellOrders);
+    matchOrders(buyOrders, sellOrders, trades);
 
     displayBuyOrders(buyOrders);
     displaySellOrders(sellOrders);
 
    if (buyOrders.empty()) {
-    cout << "\n2No remaining buy orders" << endl;
+    cout << "\nNo remaining buy orders" << endl;
 }
 
 if (sellOrders.empty()) {
     cout << "No remaining sell orders" << endl;
+}
+
+cout << "\nTrade History:\n";
+
+for (Trade trade : trades) {
+
+    cout << "BUY ID: " << trade.buyId
+         << " SELL ID: " << trade.sellId
+         << " Price: " << trade.price
+         << " Qty: " << trade.quantity
+         << endl;
 }
 
     return 0;

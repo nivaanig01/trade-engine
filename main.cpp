@@ -171,6 +171,46 @@ void displaySellOrders(
     }
 }
 
+void cancelBuyOrder(
+    priority_queue<Order, vector<Order>, BuyCompare>& buyOrders,
+    int cancelId
+) {
+
+    priority_queue<Order, vector<Order>, BuyCompare> temp;
+
+    while (!buyOrders.empty()) {
+
+        Order order = buyOrders.top();
+        buyOrders.pop();
+
+        if (order.id != cancelId) {
+            temp.push(order);
+        }
+    }
+
+    buyOrders = temp;
+}
+
+void cancelSellOrder(
+    priority_queue<Order, vector<Order>, SellCompare>& sellOrders,
+    int cancelId
+) {
+
+    priority_queue<Order, vector<Order>, SellCompare> temp;
+
+    while (!sellOrders.empty()) {
+
+        Order order = sellOrders.top();
+        sellOrders.pop();
+
+        if (order.id != cancelId) {
+            temp.push(order);
+        }
+    }
+
+    sellOrders = temp;
+}
+
 int main() {
 
     priority_queue<Order, vector<Order>, BuyCompare> buyOrders;
@@ -219,6 +259,17 @@ else {
 
 }
     }
+
+    int cancelId;
+
+cout << "\nEnter order ID to cancel (-1 for none): ";
+cin >> cancelId;
+
+if (cancelId != -1) {
+
+    cancelBuyOrder(buyOrders, cancelId);
+    cancelSellOrder(sellOrders, cancelId);
+}
     
     matchOrders(buyOrders, sellOrders, trades);
 

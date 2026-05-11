@@ -211,6 +211,58 @@ void cancelSellOrder(
     sellOrders = temp;
 }
 
+void modifyBuyOrder(
+    priority_queue<Order, vector<Order>, BuyCompare>& buyOrders,
+    int modifyId,
+    int newPrice,
+    int newQuantity
+) {
+
+    priority_queue<Order, vector<Order>, BuyCompare> temp;
+
+    while (!buyOrders.empty()) {
+
+        Order order = buyOrders.top();
+        buyOrders.pop();
+
+        if (order.id == modifyId) {
+
+            order.price = newPrice;
+            order.quantity = newQuantity;
+        }
+
+        temp.push(order);
+    }
+
+    buyOrders = temp;
+}
+
+void modifySellOrder(
+    priority_queue<Order, vector<Order>, SellCompare>& sellOrders,
+    int modifyId,
+    int newPrice,
+    int newQuantity
+) {
+
+    priority_queue<Order, vector<Order>, SellCompare> temp;
+
+    while (!sellOrders.empty()) {
+
+        Order order = sellOrders.top();
+        sellOrders.pop();
+
+        if (order.id == modifyId) {
+
+            order.price = newPrice;
+            order.quantity = newQuantity;
+        }
+
+        temp.push(order);
+    }
+
+    sellOrders = temp;
+}
+
 int main() {
 
     priority_queue<Order, vector<Order>, BuyCompare> buyOrders;
@@ -269,6 +321,37 @@ if (cancelId != -1) {
 
     cancelBuyOrder(buyOrders, cancelId);
     cancelSellOrder(sellOrders, cancelId);
+}
+
+int modifyId;
+
+cout << "\nEnter order ID to modify (-1 for none): ";
+cin >> modifyId;
+
+if (modifyId != -1) {
+
+    int newPrice;
+    int newQuantity;
+
+    cout << "Enter new price: ";
+    cin >> newPrice;
+
+    cout << "Enter new quantity: ";
+    cin >> newQuantity;
+
+    modifyBuyOrder(
+        buyOrders,
+        modifyId,
+        newPrice,
+        newQuantity
+    );
+
+    modifySellOrder(
+        sellOrders,
+        modifyId,
+        newPrice,
+        newQuantity
+    );
 }
     
     matchOrders(buyOrders, sellOrders, trades);

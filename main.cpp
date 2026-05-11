@@ -367,6 +367,10 @@ if (sellOrders.empty()) {
     cout << "No remaining sell orders" << endl;
 }
 
+int totalVolume = 0;
+int highestPrice = 0;
+int totalPriceQuantity = 0;
+
 cout << "\nTrade History:\n";
 
 for (Trade trade : trades) {
@@ -377,12 +381,45 @@ for (Trade trade : trades) {
          << " Qty: " << trade.quantity
          << endl;
 
+    totalVolume += trade.quantity;
+
+highestPrice = max(
+    highestPrice,
+    trade.price
+);
+
+totalPriceQuantity +=
+    trade.price * trade.quantity;     
+
          outFile << "BUY ID: " << trade.buyId
         << " SELL ID: " << trade.sellId
         << " Price: " << trade.price
         << " Qty: " << trade.quantity
         << endl;
 }
+
+double averagePrice = 0;
+
+if (!trades.empty()) {
+
+    averagePrice =
+        (double) totalPriceQuantity
+        / totalVolume;
+}
+
+cout << "\nMarket Analytics:\n";
+
+cout << "Total Volume: "
+     << totalVolume
+     << endl;
+
+cout << "Highest Trade Price: "
+     << highestPrice
+     << endl;
+
+cout << "Average Trade Price: "
+     << averagePrice
+     << endl;
 
 outFile.close();
 

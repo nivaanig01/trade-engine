@@ -67,6 +67,55 @@ void displaySellOrders(
     }
 }
 
+void displayMarketDepth(
+    priority_queue<Order, vector<Order>, BuyCompare> buyOrders,
+    priority_queue<Order, vector<Order>, SellCompare> sellOrders
+) {
+
+    map<int, int, greater<int>> buyLevels;
+    map<int, int> sellLevels;
+
+    while (!buyOrders.empty()) {
+
+        Order order = buyOrders.top();
+        buyOrders.pop();
+
+        buyLevels[order.price] += order.quantity;
+    }
+
+    while (!sellOrders.empty()) {
+
+        Order order = sellOrders.top();
+        sellOrders.pop();
+
+        sellLevels[order.price] += order.quantity;
+    }
+
+    cout << "\nMarket Depth:\n";
+
+    cout << "\nBUY LEVELS:\n";
+
+    for (auto level : buyLevels) {
+
+        cout << "Price: "
+             << level.first
+             << " Total Qty: "
+             << level.second
+             << endl;
+    }
+
+    cout << "\nSELL LEVELS:\n";
+
+    for (auto level : sellLevels) {
+
+        cout << "Price: "
+             << level.first
+             << " Total Qty: "
+             << level.second
+             << endl;
+    }
+}
+
 void cancelBuyOrder(
     priority_queue<Order, vector<Order>, BuyCompare>& buyOrders,
     int cancelId
@@ -254,6 +303,7 @@ if (modifyId != -1) {
 
     displayBuyOrders(buyOrders);
     displaySellOrders(sellOrders);
+    displayMarketDepth(buyOrders,sellOrders);
 
    if (buyOrders.empty()) {
     cout << "\nNo remaining buy orders" << endl;

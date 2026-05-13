@@ -18,6 +18,12 @@ public:
         vector<Order>,
         SellCompare
     > sellOrders;
+
+    void displayBuyOrders();
+
+    void displaySellOrders();
+
+    void displayMarketDepth();
 };
 
 #endif

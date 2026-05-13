@@ -1,5 +1,7 @@
 #include "engine.h"
+#include "orderbook.h"
 #include <fstream>
+
 
 using namespace std;
 
@@ -209,11 +211,10 @@ void modifySellOrder(
 }
 
 int main() {
+    
+        OrderBook orderBook;
 
-    priority_queue<Order, vector<Order>, BuyCompare> buyOrders;
-    priority_queue<Order, vector<Order>, SellCompare> sellOrders;
-
-    vector<Trade> trades;
+        vector<Trade> trades;
 
     ofstream outFile("trades.txt");
 
@@ -242,12 +243,12 @@ Order order = {i, price, quantity, isBuy, i};
 
     if (type == 'B' || type == 'b') {
 
-    addBuyOrder(buyOrders, order);
+    addBuyOrder(orderBook.buyOrders, order);
 
 }
 else if (type == 'S' || type == 's') {
 
-    addSellOrder(sellOrders, order);
+    addSellOrder(orderBook.sellOrders, order);
 
 }
 else {
@@ -264,8 +265,8 @@ cin >> cancelId;
 
 if (cancelId != -1) {
 
-    cancelBuyOrder(buyOrders, cancelId);
-    cancelSellOrder(sellOrders, cancelId);
+    cancelBuyOrder(orderBook.buyOrders, cancelId);
+    cancelSellOrder(orderBook.sellOrders, cancelId);
 }
 
 int modifyId;
@@ -285,31 +286,38 @@ if (modifyId != -1) {
     cin >> newQuantity;
 
     modifyBuyOrder(
-        buyOrders,
+        orderBook.buyOrders,
         modifyId,
         newPrice,
         newQuantity
     );
 
     modifySellOrder(
-        sellOrders,
+        orderBook.sellOrders,
         modifyId,
         newPrice,
         newQuantity
     );
 }
     
-    matchOrders(buyOrders, sellOrders, trades);
+    matchOrders(
+    orderBook.buyOrders,
+    orderBook.sellOrders,
+    trades
+);
 
-    displayBuyOrders(buyOrders);
-    displaySellOrders(sellOrders);
-    displayMarketDepth(buyOrders,sellOrders);
+    displayBuyOrders(orderBook.buyOrders);
+    displaySellOrders(orderBook.sellOrders);
+    displayMarketDepth(
+    orderBook.buyOrders,
+    orderBook.sellOrders
+);
 
-   if (buyOrders.empty()) {
+   if (orderBook.buyOrders.empty()) {
     cout << "\nNo remaining buy orders" << endl;
 }
 
-if (sellOrders.empty()) {
+   if (orderBook.sellOrders.empty()) { {
     cout << "No remaining sell orders" << endl;
 }
 
@@ -370,4 +378,5 @@ cout << "Average Trade Price: "
 outFile.close();
 
     return 0;
+}
 }

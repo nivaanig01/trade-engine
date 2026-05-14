@@ -152,6 +152,30 @@ void displayMarketSummary(
     }
 }
 
+void saveMarketState(
+    map<string, OrderBook>& markets
+) {
+
+    ofstream file("market_state.txt");
+
+    for (auto& market : markets) {
+
+        string symbol = market.first;
+
+        OrderBook& orderBook =
+            market.second;
+
+        file << symbol
+             << " "
+             << orderBook.buyOrders.size()
+             << " "
+             << orderBook.sellOrders.size()
+             << endl;
+    }
+
+    file.close();
+}
+
 int main() {
     
         map<string, OrderBook> markets;
@@ -263,6 +287,7 @@ if (modifyId != -1) {
     orderBook.displaySellOrders();
     orderBook.displayMarketDepth();
     displayMarketSummary(markets);
+    saveMarketState(markets);
 
    if (orderBook.buyOrders.empty()) {
     cout << "\nNo remaining buy orders" << endl;

@@ -1,5 +1,6 @@
 #include "engine.h"
 #include "orderbook.h"
+#include <algorithm>
 #include <fstream>
 
 
@@ -123,6 +124,34 @@ void modifySellOrder(
     sellOrders = temp;
 }
 
+void displayMarketSummary(
+    map<string, OrderBook>& markets
+) {
+
+    cout << "\nMarket Summary:\n";
+
+    for (auto& market : markets) {
+
+        string symbol = market.first;
+
+        OrderBook& orderBook =
+            market.second;
+
+        int buyCount =
+            orderBook.buyOrders.size();
+
+        int sellCount =
+            orderBook.sellOrders.size();
+
+        cout << symbol
+             << " -> Buy Orders: "
+             << buyCount
+             << " Sell Orders: "
+             << sellCount
+             << endl;
+    }
+}
+
 int main() {
     
         map<string, OrderBook> markets;
@@ -145,6 +174,7 @@ for (int i = 1; i <= n; i++) {
 
     cout << "\nEnter symbol: ";
     cin >> symbol;
+    transform(symbol.begin(),symbol.end(),symbol.begin(),::toupper);
     currentSymbol = symbol;
 
     OrderBook& orderBook = markets[symbol];
@@ -232,6 +262,7 @@ if (modifyId != -1) {
     orderBook.displayBuyOrders();
     orderBook.displaySellOrders();
     orderBook.displayMarketDepth();
+    displayMarketSummary(markets);
 
    if (orderBook.buyOrders.empty()) {
     cout << "\nNo remaining buy orders" << endl;

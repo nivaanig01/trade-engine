@@ -125,7 +125,8 @@ void modifySellOrder(
 
 int main() {
     
-        OrderBook orderBook;
+        map<string, OrderBook> markets;
+        string currentSymbol;
 
         vector<Trade> trades;
 
@@ -137,9 +138,16 @@ cin >> n;
 
 for (int i = 1; i <= n; i++) {
 
+    string symbol;
     char type;
     int price;
     int quantity;
+
+    cout << "\nEnter symbol: ";
+    cin >> symbol;
+    currentSymbol = symbol;
+
+    OrderBook& orderBook = markets[symbol];
 
     cout << "\nEnter order type (B/S): ";
     cin >> type;
@@ -152,7 +160,7 @@ for (int i = 1; i <= n; i++) {
 
     bool isBuy = (type == 'B' || type == 'b');
 
-Order order = {i, price, quantity, isBuy, i};
+    Order order = {i,price,quantity,isBuy,i,symbol};
 
     if (type == 'B' || type == 'b') {
 
@@ -171,6 +179,7 @@ else {
 }
     }
 
+    OrderBook& orderBook = markets[currentSymbol];
     int cancelId;
 
 cout << "\nEnter order ID to cancel (-1 for none): ";
@@ -178,6 +187,7 @@ cin >> cancelId;
 
 if (cancelId != -1) {
 
+    OrderBook& orderBook = markets[currentSymbol];
     cancelBuyOrder(orderBook.buyOrders, cancelId);
     cancelSellOrder(orderBook.sellOrders, cancelId);
 }

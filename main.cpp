@@ -266,6 +266,30 @@ cout << "Recovered Order: "
     file.close();
 }
 
+void saveTradesToCSV(
+    vector<Trade>& trades
+) {
+
+    ofstream file("trades.csv");
+
+    file << "BuyID,SellID,Price,Quantity"
+         << endl;
+
+    for (Trade trade : trades) {
+
+        file << trade.buyId
+             << ","
+             << trade.sellId
+             << ","
+             << trade.price
+             << ","
+             << trade.quantity
+             << endl;
+    }
+
+    file.close();
+}
+
 int main() {
     
         map<string, OrderBook> markets;
@@ -379,6 +403,7 @@ if (modifyId != -1) {
     orderBook.displayMarketDepth();
     displayMarketSummary(markets);
     saveMarketState(markets);
+    saveTradesToCSV(trades);
 
    if (orderBook.buyOrders.empty()) {
     cout << "\nNo remaining buy orders" << endl;

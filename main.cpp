@@ -165,12 +165,41 @@ void saveMarketState(
         OrderBook& orderBook =
             market.second;
 
-        file << symbol
-             << " "
-             << orderBook.buyOrders.size()
-             << " "
-             << orderBook.sellOrders.size()
-             << endl;
+        auto buyTemp =
+    orderBook.buyOrders;
+
+while (!buyTemp.empty()) {
+
+    Order order = buyTemp.top();
+    buyTemp.pop();
+
+    file << order.symbol
+         << " "
+         << "B"
+         << " "
+         << order.price
+         << " "
+         << order.quantity
+         << endl;
+}
+
+auto sellTemp =
+    orderBook.sellOrders;
+
+while (!sellTemp.empty()) {
+
+    Order order = sellTemp.top();
+    sellTemp.pop();
+
+    file << order.symbol
+         << " "
+         << "S"
+         << " "
+         << order.price
+         << " "
+         << order.quantity
+         << endl;
+}
     }
 
     file.close();
@@ -187,23 +216,51 @@ void loadMarketState(
     }
 
     string symbol;
+    char type;
 
-    int buyCount;
-    int sellCount;
+    int price;
+    int quantity;
 
-    while (
-        file >> symbol
-             >> buyCount
-             >> sellCount
-    ) {
+    int id = 1000;
 
-        cout << "Loaded Market: "
-             << symbol
-             << " Buy Orders: "
-             << buyCount
-             << " Sell Orders: "
-             << sellCount
-             << endl;
+while (
+    file >> symbol
+         >> type
+         >> price
+         >> quantity
+) {
+
+        bool isBuy =
+    (type == 'B');
+
+Order order = {
+    id++,
+    price,
+    quantity,
+    isBuy,
+    id,
+    symbol
+};
+
+OrderBook& orderBook =
+    markets[symbol];
+
+if (isBuy) {
+    orderBook.buyOrders.push(order);
+}
+else {
+    orderBook.sellOrders.push(order);
+}
+
+cout << "Recovered Order: "
+     << symbol
+     << " "
+     << type
+     << " "
+     << price
+     << " "
+     << quantity
+     << endl;
     }
 
     file.close();

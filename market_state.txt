@@ -1,2 +1,1 @@
-AAPL 2 0
-TSLA 0 1
+AAPL 0 1

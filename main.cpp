@@ -176,9 +176,43 @@ void saveMarketState(
     file.close();
 }
 
+void loadMarketState(
+    map<string, OrderBook>& markets
+) {
+
+    ifstream file("market_state.txt");
+
+    if (!file.is_open()) {
+        return;
+    }
+
+    string symbol;
+
+    int buyCount;
+    int sellCount;
+
+    while (
+        file >> symbol
+             >> buyCount
+             >> sellCount
+    ) {
+
+        cout << "Loaded Market: "
+             << symbol
+             << " Buy Orders: "
+             << buyCount
+             << " Sell Orders: "
+             << sellCount
+             << endl;
+    }
+
+    file.close();
+}
+
 int main() {
     
         map<string, OrderBook> markets;
+        loadMarketState(markets);
         string currentSymbol;
 
         vector<Trade> trades;

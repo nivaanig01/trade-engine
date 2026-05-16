@@ -270,10 +270,7 @@ void saveTradesToCSV(
     vector<Trade>& trades
 ) {
 
-    ofstream file("trades.csv");
-
-    file << "BuyID,SellID,Price,Quantity"
-         << endl;
+    ofstream file("trades.csv",ios::app);
 
     for (Trade trade : trades) {
 

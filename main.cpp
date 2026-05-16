@@ -281,7 +281,8 @@ void saveTradesToCSV(
              << trade.price
              << ","
              << trade.quantity
-             << endl;
+             << ","
+             << trade.timestamp;
     }
 
     file.close();

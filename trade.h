@@ -6,6 +6,7 @@ struct Trade {
     int sellId;
     int price;
     int quantity;
+    string timestamp;
 };
 
 #endif

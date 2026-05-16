@@ -1,4 +1,5 @@
 #include "engine.h"
+#include <ctime>
 
 // Comparator for BUY (max heap)
 bool BuyCompare::operator()(Order a, Order b) {
@@ -53,12 +54,16 @@ void matchOrders(
         sellOrders.pop();
 
         int tradeQty = min(buy.quantity, sell.quantity);
+        time_t now = time(0);
+
+    string currentTime = ctime(&now);
 
 Trade trade = {
     buy.id,
     sell.id,
     sell.price,
-    tradeQty
+    tradeQty,
+    currentTime
 };
 
 trades.push_back(trade);

@@ -282,10 +282,68 @@ void saveTradesToCSV(
              << ","
              << trade.quantity
              << ","
-             << trade.timestamp;
+             << trade.timestamp
+             << ","
+             << trade.symbol;
     }
 
     file.close();
+}
+
+void displaySymbolAnalytics(
+    vector<Trade>& trades
+) {
+
+    map<string, int> volumeMap;
+
+    map<string, int> valueMap;
+
+    map<string, int> tradeCountMap;
+
+    for (Trade trade : trades) {
+
+        volumeMap[trade.symbol]
+            += trade.quantity;
+
+        valueMap[trade.symbol]
+            += trade.price
+               * trade.quantity;
+
+        tradeCountMap[trade.symbol]++;
+    }
+
+    cout << "\nPer Symbol Analytics:\n";
+
+    for (auto item : volumeMap) {
+
+        string symbol = item.first;
+
+        int volume =
+            volumeMap[symbol];
+
+        int totalValue =
+            valueMap[symbol];
+
+        int averagePrice =
+            totalValue / volume;
+
+        int tradeCount =
+            tradeCountMap[symbol];
+
+        cout << symbol << endl;
+
+        cout << "Volume: "
+             << volume
+             << endl;
+
+        cout << "Average Price: "
+             << averagePrice
+             << endl;
+
+        cout << "Trades: "
+             << tradeCount
+             << endl << endl;
+    }
 }
 
 int main() {
@@ -464,6 +522,8 @@ cout << "Highest Trade Price: "
 cout << "Average Trade Price: "
      << averagePrice
      << endl;
+
+displaySymbolAnalytics(trades);
 
 outFile.close();
 

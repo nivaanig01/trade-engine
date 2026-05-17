@@ -7,6 +7,7 @@ struct Trade {
     int price;
     int quantity;
     string timestamp;
+    string symbol;
 };
 
 #endif

@@ -57,13 +57,15 @@ void matchOrders(
         time_t now = time(0);
 
     string currentTime = ctime(&now);
+    currentTime.pop_back();
 
 Trade trade = {
     buy.id,
     sell.id,
     sell.price,
     tradeQty,
-    currentTime
+    currentTime,
+    buy.symbol
 };
 
 trades.push_back(trade);

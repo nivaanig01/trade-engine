@@ -346,6 +346,30 @@ void displaySymbolAnalytics(
     }
 }
 
+map<string, vector<int>> priceHistory;
+void displayPriceHistory() {
+
+    cout << "\nPrice History:\n";
+
+    for (auto& item : priceHistory) {
+
+        string symbol =
+            item.first;
+
+        vector<int>& prices =
+            item.second;
+
+        cout << symbol << ": ";
+
+        for (int price : prices) {
+
+            cout << price << " ";
+        }
+
+        cout << endl;
+    }
+}
+
 int main() {
     
         map<string, OrderBook> markets;
@@ -448,15 +472,29 @@ if (modifyId != -1) {
     );
 }
     
+    for (auto& market : markets) {
+
+    string symbol =
+        market.first;
+
+    OrderBook& orderBook =
+        market.second;
+
+    cout << "\n=== "
+         << symbol
+         << " ===\n";
+
     matchOrders(
-    orderBook.buyOrders,
-    orderBook.sellOrders,
-    trades
-);
+        orderBook.buyOrders,
+        orderBook.sellOrders,
+        trades
+    );
 
     orderBook.displayBuyOrders();
     orderBook.displaySellOrders();
     orderBook.displayMarketDepth();
+}
+
     displayMarketSummary(markets);
     saveMarketState(markets);
     saveTradesToCSV(trades);
@@ -524,6 +562,7 @@ cout << "Average Trade Price: "
      << endl;
 
 displaySymbolAnalytics(trades);
+displayPriceHistory();
 
 outFile.close();
 

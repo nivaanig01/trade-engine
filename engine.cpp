@@ -1,5 +1,6 @@
 #include "engine.h"
 #include <ctime>
+extern map<string, vector<int>> priceHistory;
 
 // Comparator for BUY (max heap)
 bool BuyCompare::operator()(Order a, Order b) {
@@ -67,6 +68,9 @@ Trade trade = {
     currentTime,
     buy.symbol
 };
+
+priceHistory[buy.symbol]
+    .push_back(sell.price);
 
 trades.push_back(trade);
 

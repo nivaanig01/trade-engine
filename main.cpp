@@ -370,6 +370,40 @@ void displayPriceHistory() {
     }
 }
 
+void displayMovingAverages() {
+
+    cout << "\nMoving Averages:\n";
+
+    for (auto& item : priceHistory) {
+
+        string symbol =
+            item.first;
+
+        vector<int>& prices =
+            item.second;
+
+        if (prices.empty()) {
+            continue;
+        }
+
+        int sum = 0;
+
+        for (int price : prices) {
+
+            sum += price;
+        }
+
+        double average =
+            (double) sum
+            / prices.size();
+
+        cout << symbol
+             << " -> "
+             << average
+             << endl;
+    }
+}
+
 int main() {
     
         map<string, OrderBook> markets;
@@ -503,7 +537,7 @@ if (modifyId != -1) {
     cout << "\nNo remaining buy orders" << endl;
 }
 
-   if (orderBook.sellOrders.empty()) { {
+   if (orderBook.sellOrders.empty()) { 
     cout << "No remaining sell orders" << endl;
 }
 
@@ -563,9 +597,9 @@ cout << "Average Trade Price: "
 
 displaySymbolAnalytics(trades);
 displayPriceHistory();
+displayMovingAverages();
 
 outFile.close();
 
     return 0;
-}
 }

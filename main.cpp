@@ -518,6 +518,62 @@ void displaySignalHistory() {
     }
 }
 
+void displayVolatility() {
+
+    cout << "\nVolatility Analytics:\n";
+
+    for (auto& item : priceHistory) {
+
+        string symbol =
+            item.first;
+
+        vector<int>& prices =
+            item.second;
+
+        if (prices.empty()) {
+
+            continue;
+        }
+
+        int highest =
+            prices[0];
+
+        int lowest =
+            prices[0];
+
+        for (int price : prices) {
+
+            if (price > highest) {
+
+                highest = price;
+            }
+
+            if (price < lowest) {
+
+                lowest = price;
+            }
+        }
+
+        int volatility =
+            highest - lowest;
+
+        cout << symbol
+             << endl;
+
+        cout << "Highest Price: "
+             << highest
+             << endl;
+
+        cout << "Lowest Price: "
+             << lowest
+             << endl;
+
+        cout << "Volatility: "
+             << volatility
+             << endl << endl;
+    }
+}
+
 int main() {
     
         map<string, OrderBook> markets;
@@ -714,6 +770,7 @@ displayPriceHistory();
 displayMovingAverages();
 generateSignals();
 displaySignalHistory();
+displayVolatility();
 
 outFile.close();
 

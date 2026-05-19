@@ -422,6 +422,77 @@ void displayMovingAverages() {
     }
 }
 
+void generateSignals() {
+
+    cout << "\nTrading Signals:\n";
+
+    for (auto& item : priceHistory) {
+
+        string symbol =
+            item.first;
+
+        vector<int>& prices =
+            item.second;
+
+        if (prices.size() < 3) {
+
+            continue;
+        }
+
+        double shortSum = 0;
+
+        for (
+            int i = prices.size() - 3;
+            i < prices.size();
+            i++
+        ) {
+
+            shortSum += prices[i];
+        }
+
+        double shortMA =
+            shortSum / 3;
+
+        double longSum = 0;
+
+        for (int price : prices) {
+
+            longSum += price;
+        }
+
+        double longMA =
+            longSum / prices.size();
+
+        cout << symbol << endl;
+
+        cout << "Short MA: "
+             << shortMA
+             << endl;
+
+        cout << "Long MA: "
+             << longMA
+             << endl;
+
+        if (shortMA > longMA) {
+
+            cout << "Signal: BUY"
+                 << endl;
+        }
+        else if (shortMA < longMA) {
+
+            cout << "Signal: SELL"
+                 << endl;
+        }
+        else {
+
+            cout << "Signal: HOLD"
+                 << endl;
+        }
+
+        cout << endl;
+    }
+}
+
 int main() {
     
         map<string, OrderBook> markets;
@@ -616,6 +687,7 @@ cout << "Average Trade Price: "
 displaySymbolAnalytics(trades);
 displayPriceHistory();
 displayMovingAverages();
+generateSignals();
 
 outFile.close();
 

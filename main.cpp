@@ -574,6 +574,64 @@ void displayVolatility() {
     }
 }
 
+void displayMomentum() {
+
+    cout << "\nMomentum Analytics:\n";
+
+    for (auto& item : priceHistory) {
+
+        string symbol =
+            item.first;
+
+        vector<int>& prices =
+            item.second;
+
+        if (prices.size() < 2) {
+
+            continue;
+        }
+
+        int oldest =
+            prices.front();
+
+        int latest =
+            prices.back();
+
+        int momentum =
+            latest - oldest;
+
+        cout << symbol
+             << endl;
+
+        cout << "Oldest Price: "
+             << oldest
+             << endl;
+
+        cout << "Latest Price: "
+             << latest
+             << endl;
+
+        cout << "Momentum: "
+             << momentum
+             << endl;
+
+        if (momentum > 0) {
+
+            cout << "Trend: BULLISH";
+        }
+        else if (momentum < 0) {
+
+            cout << "Trend: BEARISH";
+        }
+        else {
+
+            cout << "Trend: SIDEWAYS";
+        }
+
+        cout << endl << endl;
+    }
+}
+
 int main() {
     
         map<string, OrderBook> markets;
@@ -771,6 +829,7 @@ displayMovingAverages();
 generateSignals();
 displaySignalHistory();
 displayVolatility();
+displayMomentum();
 
 outFile.close();
 

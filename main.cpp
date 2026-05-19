@@ -372,7 +372,7 @@ void displayPriceHistory() {
 
 void displayMovingAverages() {
 
-    cout << "\nMoving Averages:\n";
+    cout << "\nRolling Moving Averages:\n";
 
     for (auto& item : priceHistory) {
 
@@ -386,16 +386,33 @@ void displayMovingAverages() {
             continue;
         }
 
+        int windowSize = 3;
+
+        int startIndex = 0;
+
+        if (prices.size() > windowSize) {
+
+            startIndex =
+                prices.size() - windowSize;
+        }
+
         int sum = 0;
 
-        for (int price : prices) {
+        int count = 0;
 
-            sum += price;
+        for (
+            int i = startIndex;
+            i < prices.size();
+            i++
+        ) {
+
+            sum += prices[i];
+
+            count++;
         }
 
         double average =
-            (double) sum
-            / prices.size();
+            (double) sum / count;
 
         cout << symbol
              << " -> "

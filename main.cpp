@@ -347,7 +347,16 @@ void displaySymbolAnalytics(
     }
 }
 
+struct Signal {
+
+    string symbol;
+
+    string type;
+};
+
 map<string, vector<int>> priceHistory;
+vector<Signal> signalHistory;
+
 void displayPriceHistory() {
 
     cout << "\nPrice History:\n";
@@ -477,19 +486,35 @@ void generateSignals() {
 
             cout << "Signal: BUY"
                  << endl;
+            signalHistory.push_back({symbol, "BUY"});     
         }
         else if (shortMA < longMA) {
 
             cout << "Signal: SELL"
                  << endl;
+            signalHistory.push_back({symbol, "SELL"});
         }
         else {
 
             cout << "Signal: HOLD"
                  << endl;
+            signalHistory.push_back({symbol, "HOLD"});     
         }
 
         cout << endl;
+    }
+}
+
+void displaySignalHistory() {
+
+    cout << "\nSignal History:\n";
+
+    for (Signal signal : signalHistory) {
+
+        cout << signal.symbol
+             << " -> "
+             << signal.type
+             << endl;
     }
 }
 
@@ -688,6 +713,7 @@ displaySymbolAnalytics(trades);
 displayPriceHistory();
 displayMovingAverages();
 generateSignals();
+displaySignalHistory();
 
 outFile.close();
 

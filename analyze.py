@@ -43,12 +43,21 @@ aaplData = df[
     df["Symbol"] == "AAPL"
 ]
 
+prices = aaplData["Price"]
+movingAverage = prices.rolling(3).mean()
+
 plt.plot(
-    aaplData["Price"]
+    prices,
+    label="Price"
+)
+
+plt.plot(
+    movingAverage,
+    label="Moving Average"
 )
 
 plt.title(
-    "AAPL Price History"
+    "AAPL Price + Moving Average"
 )
 
 plt.xlabel(
@@ -58,5 +67,7 @@ plt.xlabel(
 plt.ylabel(
     "Price"
 )
+
+plt.legend()
 
 plt.show()

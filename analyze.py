@@ -46,28 +46,45 @@ aaplData = df[
 prices = aaplData["Price"]
 movingAverage = prices.rolling(3).mean()
 
-plt.plot(
-    prices,
-    label="Price"
+aaplData = df[
+    df["Symbol"] == "AAPL"
+]
+
+prices = list(
+    aaplData["Price"]
 )
 
-plt.plot(
-    movingAverage,
-    label="Moving Average"
-)
+print("\nCandlestick Data:\n")
 
-plt.title(
-    "AAPL Price + Moving Average"
-)
+windowSize = 4
 
-plt.xlabel(
-    "Trade Number"
-)
+for i in range(
+    0,
+    len(prices),
+    windowSize
+):
 
-plt.ylabel(
-    "Price"
-)
+    candle = prices[i:i+windowSize]
 
-plt.legend()
+    if len(candle) < 4:
 
-plt.show()
+        break
+
+    openPrice = candle[0]
+
+    highPrice = max(candle)
+
+    lowPrice = min(candle)
+
+    closePrice = candle[-1]
+
+    print(
+        "OPEN:",
+        openPrice,
+        "HIGH:",
+        highPrice,
+        "LOW:",
+        lowPrice,
+        "CLOSE:",
+        closePrice
+    )

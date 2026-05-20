@@ -1,50 +1,8 @@
 import pandas as pd
 import matplotlib.pyplot as plt
+import mplfinance as mpf
 
 df = pd.read_csv("trades.csv")
-
-print("\nTrade Dataset:\n")
-
-print(df)
-
-print("\nAnalytics:\n")
-
-print(
-    "Total Trades:",
-    len(df)
-)
-
-print(
-    "Highest Price:",
-    df["Price"].max()
-)
-
-print(
-    "Lowest Price:",
-    df["Price"].min()
-)
-
-print(
-    "Average Price:",
-    df["Price"].mean()
-)
-
-print(
-    "Total Quantity:",
-    df["Quantity"].sum()
-)
-
-print(
-    "Symbols:",
-    df["Symbol"].unique()
-)
-
-aaplData = df[
-    df["Symbol"] == "AAPL"
-]
-
-prices = aaplData["Price"]
-movingAverage = prices.rolling(3).mean()
 
 aaplData = df[
     df["Symbol"] == "AAPL"
@@ -54,7 +12,7 @@ prices = list(
     aaplData["Price"]
 )
 
-print("\nCandlestick Data:\n")
+candles = []
 
 windowSize = 4
 
@@ -78,13 +36,34 @@ for i in range(
 
     closePrice = candle[-1]
 
-    print(
-        "OPEN:",
-        openPrice,
-        "HIGH:",
-        highPrice,
-        "LOW:",
-        lowPrice,
-        "CLOSE:",
-        closePrice
+    candles.append(
+        [
+            openPrice,
+            highPrice,
+            lowPrice,
+            closePrice
+        ]
     )
+
+candleDF = pd.DataFrame(
+    candles,
+    columns=[
+        "Open",
+        "High",
+        "Low",
+        "Close"
+    ]
+)
+
+candleDF.index = pd.date_range(
+    start="2026-01-01",
+    periods=len(candleDF),
+    freq="D"
+)
+
+mpf.plot(
+    candleDF,
+    type="candle",
+    style="charles",
+    title="AAPL Candlestick Chart"
+)

@@ -2,8 +2,7 @@
 #include "orderbook.h"
 #include <algorithm>
 #include <fstream>
-
-
+#include <sstream>
 using namespace std;
 
 void addBuyOrder(
@@ -632,10 +631,59 @@ void displayMomentum() {
     }
 }
 
+void loadPriceHistory() {
+
+    ifstream file("trades.csv");
+
+    if (!file.is_open()) {
+
+        return;
+    }
+
+    string line;
+
+    getline(file, line);
+
+    while (getline(file, line)) {
+
+        stringstream ss(line);
+
+        string buyID;
+        string sellID;
+        string price;
+        string quantity;
+        string timestamp;
+        string symbol;
+
+        getline(ss, buyID, ',');
+
+        getline(ss, sellID, ',');
+
+        getline(ss, price, ',');
+
+        getline(ss, quantity, ',');
+
+        getline(ss, timestamp, ',');
+
+        getline(ss, symbol, ',');
+
+        int tradePrice =
+            stoi(price);
+
+        priceHistory[symbol]
+            .push_back(tradePrice);
+    }
+
+    file.close();
+
+    cout << "\nPrice history recovered.\n";
+}
+
 int main() {
     
         map<string, OrderBook> markets;
         loadMarketState(markets);
+        loadPriceHistory();
         string currentSymbol;
 
         vector<Trade> trades;

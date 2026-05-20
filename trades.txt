@@ -1,3 +1,0 @@
-BUY ID: 3 SELL ID: 1000 Price: 50 Qty: 1
-BUY ID: 2 SELL ID: 1001 Price: 150 Qty: 1
-BUY ID: 1 SELL ID: 1002 Price: 200 Qty: 1

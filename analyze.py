@@ -1,4 +1,5 @@
 import pandas as pd
+import matplotlib.pyplot as plt
 
 df = pd.read_csv("trades.csv")
 
@@ -37,3 +38,25 @@ print(
     "Symbols:",
     df["Symbol"].unique()
 )
+
+aaplData = df[
+    df["Symbol"] == "AAPL"
+]
+
+plt.plot(
+    aaplData["Price"]
+)
+
+plt.title(
+    "AAPL Price History"
+)
+
+plt.xlabel(
+    "Trade Number"
+)
+
+plt.ylabel(
+    "Price"
+)
+
+plt.show()

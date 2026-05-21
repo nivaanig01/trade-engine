@@ -1,5 +1,6 @@
 import pandas as pd
 import mplfinance as mpf
+import random
 
 df = pd.read_csv("trades.csv")
 
@@ -35,12 +36,18 @@ for i in range(
 
     closePrice = candle[-1]
 
+    volume = random.randint(
+        100,
+        1000
+    )
+
     candles.append(
         [
             openPrice,
             highPrice,
             lowPrice,
-            closePrice
+            closePrice,
+            volume
         ]
     )
 
@@ -50,7 +57,8 @@ candleDF = pd.DataFrame(
         "Open",
         "High",
         "Low",
-        "Close"
+        "Close",
+        "Volume"
     ]
 )
 
@@ -67,13 +75,16 @@ candleDF["MA"] = (
 )
 
 addPlot = mpf.make_addplot(
-    candleDF["MA"]
+    candleDF["MA"],
+    color="cyan"
 )
 
 mpf.plot(
     candleDF,
     type="candle",
-    style="yahoo",
-    title="AAPL Professional Chart",
-    addplot=addPlot
+    style="charles",
+    volume=True,
+    addplot=addPlot,
+    title="AAPL Professional Trading Chart",
+    figsize=(12, 8)
 )

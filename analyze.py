@@ -1,5 +1,4 @@
 import pandas as pd
-import matplotlib.pyplot as plt
 import mplfinance as mpf
 
 df = pd.read_csv("trades.csv")
@@ -61,9 +60,20 @@ candleDF.index = pd.date_range(
     freq="D"
 )
 
+candleDF["MA"] = (
+    candleDF["Close"]
+    .rolling(2)
+    .mean()
+)
+
+addPlot = mpf.make_addplot(
+    candleDF["MA"]
+)
+
 mpf.plot(
     candleDF,
     type="candle",
-    style="charles",
-    title="AAPL Candlestick Chart"
+    style="yahoo",
+    title="AAPL Professional Chart",
+    addplot=addPlot
 )

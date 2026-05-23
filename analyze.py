@@ -194,15 +194,52 @@ print(
 
 if len(profits) > 0:
 
+    totalProfit = sum(
+        profits
+    )
+
+    averageProfit = (
+        totalProfit
+        / len(profits)
+    )
+
+    winningTrades = 0
+
+    for p in profits:
+
+        if p > 0:
+
+            winningTrades += 1
+
+    winRate = (
+        winningTrades
+        / len(profits)
+    ) * 100
+
     print(
         "Total Profit:",
-        sum(profits)
+        totalProfit
     )
 
     print(
         "Average Profit:",
-        sum(profits)
-        / len(profits)
+        averageProfit
+    )
+
+    print(
+        "Best Trade:",
+        max(profits)
+    )
+
+    print(
+        "Worst Trade:",
+        min(profits)
+    )
+
+    print(
+        "Win Rate:",
+        round(winRate, 2),
+        "%"
     )
 
 else:

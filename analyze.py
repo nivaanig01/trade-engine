@@ -1,6 +1,7 @@
 import pandas as pd
 import mplfinance as mpf
 import random
+import numpy as np
 
 df = pd.read_csv("trades.csv")
 
@@ -74,9 +75,79 @@ candleDF["MA"] = (
     .mean()
 )
 
-addPlot = mpf.make_addplot(
+buySignals = []
+
+sellSignals = []
+
+for i in range(
+    len(candleDF)
+):
+
+    if i == 0:
+
+        buySignals.append(
+            np.nan
+        )
+
+        sellSignals.append(
+            np.nan
+        )
+
+        continue
+
+    currentClose = (
+        candleDF["Close"]
+        .iloc[i]
+    )
+
+    currentMA = (
+        candleDF["MA"]
+        .iloc[i]
+    )
+
+    if currentClose > currentMA:
+
+        buySignals.append(
+            currentClose
+        )
+
+        sellSignals.append(
+            np.nan
+        )
+
+    else:
+
+        buySignals.append(
+            np.nan
+        )
+
+        sellSignals.append(
+            currentClose
+        )
+
+candleDF["BUY"] = buySignals
+
+candleDF["SELL"] = sellSignals
+
+maPlot = mpf.make_addplot(
     candleDF["MA"],
-    color="cyan"
+    color="blue"
+)
+
+buyPlot = mpf.make_addplot(
+    candleDF["BUY"],
+    type="scatter",
+    marker="^",
+    markersize=100,
+    color="green"
+)
+
+sellPlot = mpf.make_addplot(
+    candleDF["SELL"],
+    type="scatter",
+    marker="v",
+    markersize=100,
+    color="red"
 )
 
 mpf.plot(
@@ -84,7 +155,11 @@ mpf.plot(
     type="candle",
     style="charles",
     volume=True,
-    addplot=addPlot,
-    title="AAPL Professional Trading Chart",
+    title="AAPL Trading Signals",
+    addplot=[
+        maPlot,
+        buyPlot,
+        sellPlot
+    ],
     figsize=(12, 8)
 )

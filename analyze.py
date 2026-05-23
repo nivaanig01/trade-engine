@@ -247,3 +247,38 @@ else:
     print(
         "No completed trades."
     )
+
+equityCurve = []
+
+balance = 1000
+
+for p in profits:
+
+    balance += p
+
+    equityCurve.append(
+        balance
+    )
+
+if len(equityCurve) > 0:
+
+    import matplotlib.pyplot as plt
+
+    plt.plot(
+        equityCurve
+    )
+
+    plt.title(
+        "Strategy Equity Curve"
+    )
+
+    plt.xlabel(
+        "Trade Number"
+    )
+
+    plt.ylabel(
+        "Account Balance"
+    )
+
+    plt.show()
+    

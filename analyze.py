@@ -79,6 +79,10 @@ buySignals = []
 
 sellSignals = []
 
+profits = []
+
+buyPrice = None
+
 for i in range(
     len(candleDF)
 ):
@@ -115,6 +119,10 @@ for i in range(
             np.nan
         )
 
+        if buyPrice is None:
+
+            buyPrice = currentClose
+
     else:
 
         buySignals.append(
@@ -124,6 +132,19 @@ for i in range(
         sellSignals.append(
             currentClose
         )
+
+        if buyPrice is not None:
+
+            profit = (
+                currentClose
+                - buyPrice
+            )
+
+            profits.append(
+                profit
+            )
+
+            buyPrice = None
 
 candleDF["BUY"] = buySignals
 
@@ -155,7 +176,7 @@ mpf.plot(
     type="candle",
     style="charles",
     volume=True,
-    title="AAPL Trading Signals",
+    title="AAPL Strategy Backtest",
     addplot=[
         maPlot,
         buyPlot,
@@ -163,3 +184,29 @@ mpf.plot(
     ],
     figsize=(12, 8)
 )
+
+print("\nBacktest Results:\n")
+
+print(
+    "Total Trades:",
+    len(profits)
+)
+
+if len(profits) > 0:
+
+    print(
+        "Total Profit:",
+        sum(profits)
+    )
+
+    print(
+        "Average Profit:",
+        sum(profits)
+        / len(profits)
+    )
+
+else:
+
+    print(
+        "No completed trades."
+    )

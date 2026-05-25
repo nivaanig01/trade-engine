@@ -303,4 +303,52 @@ print("\nRisk Analytics:\n")
 print(
     "Maximum Drawdown:",
     maxDrawdown
-)    
+)  
+
+print("\nStrategy Comparison:\n")
+
+maStrategyProfit = sum(
+    profits
+)
+
+momentumProfit = 0
+
+for i in range(
+    1,
+    len(prices)
+):
+
+    if prices[i] > prices[i - 1]:
+
+        momentumProfit += (
+            prices[i]
+            - prices[i - 1]
+        )
+
+print(
+    "Moving Average Strategy Profit:",
+    maStrategyProfit
+)
+
+print(
+    "Momentum Strategy Profit:",
+    momentumProfit
+)
+
+if maStrategyProfit > momentumProfit:
+
+    print(
+        "Best Strategy: Moving Average"
+    )
+
+elif momentumProfit > maStrategyProfit:
+
+    print(
+        "Best Strategy: Momentum"
+    )
+
+else:
+
+    print(
+        "Strategies Performed Equally"
+    )

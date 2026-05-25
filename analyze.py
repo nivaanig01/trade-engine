@@ -281,4 +281,26 @@ if len(equityCurve) > 0:
     )
 
     plt.show()
-    
+
+peak = equityCurve[0]
+
+maxDrawdown = 0
+
+for value in equityCurve:
+
+    if value > peak:
+
+        peak = value
+
+    drawdown = peak - value
+
+    if drawdown > maxDrawdown:
+
+        maxDrawdown = drawdown
+
+print("\nRisk Analytics:\n")
+
+print(
+    "Maximum Drawdown:",
+    maxDrawdown
+)    

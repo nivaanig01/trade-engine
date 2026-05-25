@@ -2,6 +2,8 @@ import pandas as pd
 import mplfinance as mpf
 import random
 import numpy as np
+import matplotlib.pyplot as plt
+import matplotlib.animation as animation
 
 df = pd.read_csv("trades.csv")
 
@@ -150,40 +152,33 @@ candleDF["BUY"] = buySignals
 
 candleDF["SELL"] = sellSignals
 
-maPlot = mpf.make_addplot(
-    candleDF["MA"],
-    color="blue"
+
+
+fig = plt.figure()
+
+fig, ax = plt.subplots()
+
+def animate(frame):
+
+    ax.clear()
+
+    mpf.plot(
+        candleDF,
+        type="candle",
+        style="charles",
+        volume=False,
+        mav=(2),
+        ax=ax
+    )
+
+ani = animation.FuncAnimation(
+    fig,
+    animate,
+    interval=3000,
+    cache_frame_data=False
 )
 
-buyPlot = mpf.make_addplot(
-    candleDF["BUY"],
-    type="scatter",
-    marker="^",
-    markersize=100,
-    color="green"
-)
-
-sellPlot = mpf.make_addplot(
-    candleDF["SELL"],
-    type="scatter",
-    marker="v",
-    markersize=100,
-    color="red"
-)
-
-mpf.plot(
-    candleDF,
-    type="candle",
-    style="charles",
-    volume=True,
-    title="AAPL Strategy Backtest",
-    addplot=[
-        maPlot,
-        buyPlot,
-        sellPlot
-    ],
-    figsize=(12, 8)
-)
+plt.show()
 
 print("\nBacktest Results:\n")
 
@@ -418,4 +413,4 @@ print(
     "Best Window Profit:",
     round(bestProfit, 2)
 )
-    
+

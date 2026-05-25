@@ -352,3 +352,70 @@ else:
     print(
         "Strategies Performed Equally"
     )
+
+print("\nParameter Optimization:\n")
+
+bestWindow = None
+
+bestProfit = -999999
+
+for window in [2, 3, 5]:
+
+    testProfit = 0
+
+    rollingMA = (
+        candleDF["Close"]
+        .rolling(window)
+        .mean()
+    )
+
+    for i in range(
+        window,
+        len(candleDF)
+    ):
+
+        currentClose = (
+            candleDF["Close"]
+            .iloc[i]
+        )
+
+        currentMA = (
+            rollingMA
+            .iloc[i]
+        )
+
+        previousClose = (
+            candleDF["Close"]
+            .iloc[i - 1]
+        )
+
+        if currentClose > currentMA:
+
+            testProfit += (
+                currentClose
+                - previousClose
+            )
+
+    print(
+        "Window",
+        window,
+        "Profit:",
+        round(testProfit, 2)
+    )
+
+    if testProfit > bestProfit:
+
+        bestProfit = testProfit
+
+        bestWindow = window
+
+print(
+    "\nBest MA Window:",
+    bestWindow
+)
+
+print(
+    "Best Window Profit:",
+    round(bestProfit, 2)
+)
+    

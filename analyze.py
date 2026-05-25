@@ -1,6 +1,7 @@
 import pandas as pd
 import mplfinance as mpf
 import random
+import time
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
@@ -159,6 +160,31 @@ fig = plt.figure()
 fig, ax = plt.subplots()
 
 def animate(frame):
+
+    newPrice = random.randint(
+        80,
+        250
+    )
+
+    newTrade = pd.DataFrame(
+        [
+            {
+                "BuyID": 9999,
+                "SellID": 9999,
+                "Price": newPrice,
+                "Quantity": 1,
+                "Timestamp": time.ctime(),
+                "Symbol": "AAPL"
+            }
+        ]
+    )
+
+    newTrade.to_csv(
+        "trades.csv",
+        mode="a",
+        header=False,
+        index=False
+    )
 
     ax.clear()
 

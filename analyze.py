@@ -660,3 +660,66 @@ else:
     print(
         "Not enough data for correlation."
     )
+
+print("\nMarket Volatility Index:\n")
+
+priceChanges = []
+
+for i in range(
+    1,
+    len(prices)
+):
+
+    change = abs(
+        prices[i]
+        - prices[i - 1]
+    )
+
+    priceChanges.append(
+        change
+    )
+
+if len(priceChanges) > 0:
+
+    averageVolatility = (
+        sum(priceChanges)
+        / len(priceChanges)
+    )
+
+    maxVolatility = max(
+        priceChanges
+    )
+
+    print(
+        "Average Volatility:",
+        round(averageVolatility, 2)
+    )
+
+    print(
+        "Maximum Single Move:",
+        round(maxVolatility, 2)
+    )
+
+    if averageVolatility > 50:
+
+        print(
+            "Market State: HIGH VOLATILITY"
+        )
+
+    elif averageVolatility > 20:
+
+        print(
+            "Market State: MODERATE VOLATILITY"
+        )
+
+    else:
+
+        print(
+            "Market State: LOW VOLATILITY"
+        )
+
+else:
+
+    print(
+        "Not enough data for volatility analysis."
+    )

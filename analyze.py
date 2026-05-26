@@ -174,7 +174,7 @@ def animate(frame):
                 "Price": newPrice,
                 "Quantity": 1,
                 "Timestamp": time.ctime(),
-                "Symbol": "AAPL"
+                "Symbol": random.choice(["AAPL", "TSLA"])
             }
         ]
     )
@@ -592,4 +592,71 @@ else:
 
     print(
         "Not enough trades for Sharpe Ratio."
+    )
+
+print("\nCorrelation Analytics:\n")
+
+aaplPrices = list(
+    df[
+        df["Symbol"] == "AAPL"
+    ]["Price"]
+)
+
+tslaPrices = list(
+    df[
+        df["Symbol"] == "TSLA"
+    ]["Price"]
+)
+
+minimumLength = min(
+    len(aaplPrices),
+    len(tslaPrices)
+)
+
+if minimumLength > 1:
+
+    aaplPrices = (
+        aaplPrices[:minimumLength]
+    )
+
+    tslaPrices = (
+        tslaPrices[:minimumLength]
+    )
+
+    correlationMatrix = np.corrcoef(
+        aaplPrices,
+        tslaPrices
+    )
+
+    correlation = (
+        correlationMatrix[0][1]
+    )
+
+    print(
+        "AAPL-TSLA Correlation:",
+        round(correlation, 2)
+    )
+
+    if correlation > 0.7:
+
+        print(
+            "Strong Positive Correlation"
+        )
+
+    elif correlation < -0.7:
+
+        print(
+            "Strong Negative Correlation"
+        )
+
+    else:
+
+        print(
+            "Weak/Moderate Correlation"
+        )
+
+else:
+
+    print(
+        "Not enough data for correlation."
     )

@@ -439,4 +439,49 @@ print(
     "Best Window Profit:",
     round(bestProfit, 2)
 )
+print("\nPortfolio Analytics:\n")
 
+cashBalance = 10000
+
+sharesOwned = 0
+
+for price in prices:
+
+    if price < 100:
+
+        sharesOwned += 1
+
+        cashBalance -= price
+
+    elif sharesOwned > 0:
+
+        sharesOwned -= 1
+
+        cashBalance += price
+
+latestPrice = prices[-1]
+
+portfolioValue = (
+    cashBalance
+    + sharesOwned * latestPrice
+)
+
+print(
+    "Cash Balance:",
+    round(cashBalance, 2)
+)
+
+print(
+    "Shares Owned:",
+    sharesOwned
+)
+
+print(
+    "Latest Price:",
+    latestPrice
+)
+
+print(
+    "Total Portfolio Value:",
+    round(portfolioValue, 2)
+)

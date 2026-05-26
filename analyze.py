@@ -538,3 +538,58 @@ for symbol in symbols:
     )
 
     print()
+
+print("\nAdvanced Risk Metrics:\n")
+
+if len(profits) > 1:
+
+    averageReturn = (
+        sum(profits)
+        / len(profits)
+    )
+
+    variance = 0
+
+    for p in profits:
+
+        variance += (
+            p - averageReturn
+        ) ** 2
+
+    variance /= len(profits)
+
+    standardDeviation = (
+        variance ** 0.5
+    )
+
+    if standardDeviation != 0:
+
+        sharpeRatio = (
+            averageReturn
+            / standardDeviation
+        )
+
+    else:
+
+        sharpeRatio = 0
+
+    print(
+        "Average Return:",
+        round(averageReturn, 2)
+    )
+
+    print(
+        "Risk (Std Dev):",
+        round(standardDeviation, 2)
+    )
+
+    print(
+        "Sharpe Ratio:",
+        round(sharpeRatio, 2)
+    )
+
+else:
+
+    print(
+        "Not enough trades for Sharpe Ratio."
+    )

@@ -485,3 +485,56 @@ print(
     "Total Portfolio Value:",
     round(portfolioValue, 2)
 )
+
+print("\nMulti-Asset Portfolio:\n")
+
+symbols = df["Symbol"].unique()
+
+for symbol in symbols:
+
+    symbolData = df[
+        df["Symbol"] == symbol
+    ]
+
+    symbolPrices = list(
+        symbolData["Price"]
+    )
+
+    averagePrice = (
+        sum(symbolPrices)
+        / len(symbolPrices)
+    )
+
+    highestPrice = max(
+        symbolPrices
+    )
+
+    lowestPrice = min(
+        symbolPrices
+    )
+
+    print(
+        symbol
+    )
+
+    print(
+        "Trades:",
+        len(symbolPrices)
+    )
+
+    print(
+        "Average Price:",
+        round(averagePrice, 2)
+    )
+
+    print(
+        "Highest Price:",
+        highestPrice
+    )
+
+    print(
+        "Lowest Price:",
+        lowestPrice
+    )
+
+    print()

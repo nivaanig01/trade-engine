@@ -723,3 +723,60 @@ else:
     print(
         "Not enough data for volatility analysis."
     )
+
+print("\nMarket Regime Classification:\n")
+
+overallTrend = (
+    prices[-1]
+    - prices[0]
+)
+
+if averageVolatility > 50:
+
+    regime = "VOLATILE"
+
+elif overallTrend > 100:
+
+    regime = "BULL MARKET"
+
+elif overallTrend < -100:
+
+    regime = "BEAR MARKET"
+
+else:
+
+    regime = "SIDEWAYS MARKET"
+
+print(
+    "Overall Trend:",
+    overallTrend
+)
+
+print(
+    "Detected Regime:",
+    regime
+)
+
+if regime == "BULL MARKET":
+
+    print(
+        "Momentum strategies favored."
+    )
+
+elif regime == "BEAR MARKET":
+
+    print(
+        "Defensive strategies favored."
+    )
+
+elif regime == "VOLATILE":
+
+    print(
+        "Risk management critical."
+    )
+
+else:
+
+    print(
+        "Mean reversion strategies favored."
+    )

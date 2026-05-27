@@ -780,3 +780,58 @@ else:
     print(
         "Mean reversion strategies favored."
     )
+
+print("\nAdaptive Strategy Engine:\n")
+
+if regime == "BULL MARKET":
+
+    selectedStrategy = (
+        "Momentum Strategy"
+    )
+
+elif regime == "BEAR MARKET":
+
+    selectedStrategy = (
+        "Defensive Strategy"
+    )
+
+elif regime == "VOLATILE":
+
+    selectedStrategy = (
+        "Risk-Control Strategy"
+    )
+
+else:
+
+    selectedStrategy = (
+        "Mean Reversion Strategy"
+    )
+
+print(
+    "Selected Strategy:",
+    selectedStrategy
+)
+
+if selectedStrategy == "Momentum Strategy":
+
+    print(
+        "Focus on trend-following trades."
+    )
+
+elif selectedStrategy == "Defensive Strategy":
+
+    print(
+        "Reduce exposure and preserve capital."
+    )
+
+elif selectedStrategy == "Risk-Control Strategy":
+
+    print(
+        "Use smaller positions and tighter controls."
+    )
+
+else:
+
+    print(
+        "Trade price reversals cautiously."
+    )    

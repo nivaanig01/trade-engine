@@ -893,4 +893,44 @@ else:
 
     print(
         "Balanced capital allocation active."
-    )        
+    ) 
+
+print("\nAutomated Risk Shutdown System:\n")
+
+shutdownTriggered = False
+
+if averageVolatility > 80:
+
+    shutdownTriggered = True
+
+if sharpeRatio < -1:
+
+    shutdownTriggered = True
+
+if maxDrawdown > 150:
+
+    shutdownTriggered = True
+
+if shutdownTriggered:
+
+    print(
+        "RISK SHUTDOWN ACTIVATED"
+    )
+
+    print(
+        "Trading activity halted."
+    )
+
+    print(
+        "System entering protection mode."
+    )
+
+else:
+
+    print(
+        "System operating normally."
+    )
+
+    print(
+        "Risk conditions acceptable."
+    )

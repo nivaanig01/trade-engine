@@ -834,4 +834,63 @@ else:
 
     print(
         "Trade price reversals cautiously."
-    )    
+    )
+
+print("\nPosition Sizing Engine:\n")
+
+baseCapital = portfolioValue
+
+if regime == "VOLATILE":
+
+    riskPercent = 0.02
+
+elif regime == "BULL MARKET":
+
+    riskPercent = 0.10
+
+elif regime == "BEAR MARKET":
+
+    riskPercent = 0.03
+
+else:
+
+    riskPercent = 0.05
+
+positionSize = (
+    baseCapital
+    * riskPercent
+)
+
+print(
+    "Portfolio Capital:",
+    round(baseCapital, 2)
+)
+
+print(
+    "Risk Allocation:",
+    int(riskPercent * 100),
+    "%"
+)
+
+print(
+    "Recommended Position Size:",
+    round(positionSize, 2)
+)
+
+if riskPercent <= 0.03:
+
+    print(
+        "Defensive capital allocation active."
+    )
+
+elif riskPercent >= 0.10:
+
+    print(
+        "Aggressive capital deployment active."
+    )
+
+else:
+
+    print(
+        "Balanced capital allocation active."
+    )        

@@ -1077,3 +1077,82 @@ else:
             "-",
             alert
         )
+
+print("\nSYSTEM HEALTH SCORING ENGINE\n")
+
+healthScore = 100
+
+if averageVolatility > 50:
+
+    healthScore -= 20
+
+if sharpeRatio < 0:
+
+    healthScore -= 20
+
+if shutdownTriggered:
+
+    healthScore -= 30
+
+if not tradeAllowed:
+
+    healthScore -= 20
+
+if positionSize < 300:
+
+    healthScore -= 10
+
+if healthScore < 0:
+
+    healthScore = 0
+
+print(
+    "System Health Score:",
+    healthScore,
+    "/ 100"
+)
+
+if healthScore >= 80:
+
+    healthStatus = "EXCELLENT"
+
+elif healthScore >= 60:
+
+    healthStatus = "STABLE"
+
+elif healthScore >= 40:
+
+    healthStatus = "WARNING"
+
+else:
+
+    healthStatus = "CRITICAL"
+
+print(
+    "System Health Status:",
+    healthStatus
+)
+
+if healthStatus == "EXCELLENT":
+
+    print(
+        "All systems operating optimally."
+    )
+
+elif healthStatus == "STABLE":
+
+    print(
+        "System stable with manageable risk."
+    )
+
+elif healthStatus == "WARNING":
+
+    print(
+        "Elevated operational risk detected."
+    )
+
+else:
+
+    print(
+        "Critical system conditions detected."
+    )        

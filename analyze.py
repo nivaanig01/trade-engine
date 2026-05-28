@@ -934,3 +934,44 @@ else:
     print(
         "Risk conditions acceptable."
     )
+
+print("\nTrade Execution Permission Engine:\n")
+
+tradeAllowed = True
+
+if shutdownTriggered:
+
+    tradeAllowed = False
+
+if regime == "VOLATILE":
+
+    tradeAllowed = False
+
+if sharpeRatio < 0:
+
+    tradeAllowed = False
+
+if tradeAllowed:
+
+    print(
+        "TRADE EXECUTION APPROVED"
+    )
+
+    print(
+        "System authorized for live trading."
+    )
+
+else:
+
+    print(
+        "TRADE EXECUTION BLOCKED"
+    )
+
+    print(
+        "Unsafe market conditions detected."
+    )
+
+    print(
+        "Execution permissions revoked."
+    )
+    

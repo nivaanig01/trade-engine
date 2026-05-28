@@ -974,4 +974,53 @@ else:
     print(
         "Execution permissions revoked."
     )
-    
+
+print("\nLIVE SYSTEM STATUS MONITOR\n")
+
+print(
+    "Market Regime:",
+    regime
+)
+
+print(
+    "Selected Strategy:",
+    selectedStrategy
+)
+
+print(
+    "Trade Execution:",
+    (
+        "ENABLED"
+        if tradeAllowed
+        else "DISABLED"
+    )
+)
+
+print(
+    "Risk Shutdown:",
+    (
+        "ACTIVE"
+        if shutdownTriggered
+        else "INACTIVE"
+    )
+)
+
+print(
+    "Portfolio Value:",
+    round(portfolioValue, 2)
+)
+
+print(
+    "Average Volatility:",
+    round(averageVolatility, 2)
+)
+
+print(
+    "Sharpe Ratio:",
+    round(sharpeRatio, 2)
+)
+
+print(
+    "Recommended Position Size:",
+    round(positionSize, 2)
+)

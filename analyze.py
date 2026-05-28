@@ -1155,4 +1155,79 @@ else:
 
     print(
         "Critical system conditions detected."
-    )        
+    )     
+
+print("\nSYSTEM PERFORMANCE HISTORY\n")
+
+try:
+
+    healthHistory = pd.read_csv(
+        "health_history.csv"
+    )
+
+except:
+
+    healthHistory = pd.DataFrame(
+        columns=[
+            "HealthScore"
+        ]
+    )
+
+newHealth = pd.DataFrame(
+    {
+        "HealthScore": [
+            healthScore
+        ]
+    }
+)
+
+healthHistory = pd.concat(
+    [
+        healthHistory,
+        newHealth
+    ],
+    ignore_index=True
+)
+
+healthHistory.to_csv(
+    "health_history.csv",
+    index=False
+)
+
+averageHealth = (
+    healthHistory[
+        "HealthScore"
+    ].mean()
+)
+
+bestHealth = (
+    healthHistory[
+        "HealthScore"
+    ].max()
+)
+
+worstHealth = (
+    healthHistory[
+        "HealthScore"
+    ].min()
+)
+
+print(
+    "Historical Average Health:",
+    round(averageHealth, 2)
+)
+
+print(
+    "Best Historical Health:",
+    bestHealth
+)
+
+print(
+    "Worst Historical Health:",
+    worstHealth
+)
+
+print(
+    "Recorded Health Snapshots:",
+    len(healthHistory)
+)

@@ -1024,3 +1024,56 @@ print(
     "Recommended Position Size:",
     round(positionSize, 2)
 )
+
+print("\nALERT & NOTIFICATION ENGINE\n")
+
+alerts = []
+
+if averageVolatility > 50:
+
+    alerts.append(
+        "High market volatility detected."
+    )
+
+if sharpeRatio < 0:
+
+    alerts.append(
+        "Negative Sharpe ratio warning."
+    )
+
+if shutdownTriggered:
+
+    alerts.append(
+        "Risk shutdown currently ACTIVE."
+    )
+
+if not tradeAllowed:
+
+    alerts.append(
+        "Trade execution currently BLOCKED."
+    )
+
+if positionSize < 300:
+
+    alerts.append(
+        "Defensive position sizing active."
+    )
+
+if len(alerts) == 0:
+
+    print(
+        "No active alerts."
+    )
+
+else:
+
+    print(
+        "ACTIVE ALERTS:\n"
+    )
+
+    for alert in alerts:
+
+        print(
+            "-",
+            alert
+        )

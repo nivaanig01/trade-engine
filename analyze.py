@@ -1292,3 +1292,30 @@ else:
         "Not enough history for trend analysis."
     )
 
+print("\nHEALTH HISTORY VISUALIZATION\n")
+
+plt.figure(
+    figsize=(8, 4)
+)
+
+plt.plot(
+    healthHistory["HealthScore"],
+    marker="o"
+)
+
+plt.title(
+    "System Health History"
+)
+
+plt.xlabel(
+    "Snapshot"
+)
+
+plt.ylabel(
+    "Health Score"
+)
+
+plt.grid()
+
+plt.show()
+

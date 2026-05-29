@@ -1231,3 +1231,64 @@ print(
     "Recorded Health Snapshots:",
     len(healthHistory)
 )
+
+print("\nHEALTH TREND ANALYSIS\n")
+
+if len(healthHistory) >= 2:
+
+    firstHealth = (
+        healthHistory[
+            "HealthScore"
+        ].iloc[0]
+    )
+
+    latestHealth = (
+        healthHistory[
+            "HealthScore"
+        ].iloc[-1]
+    )
+
+    trendChange = (
+        latestHealth
+        - firstHealth
+    )
+
+    print(
+        "Initial Health:",
+        firstHealth
+    )
+
+    print(
+        "Latest Health:",
+        latestHealth
+    )
+
+    print(
+        "Net Change:",
+        trendChange
+    )
+
+    if trendChange > 0:
+
+        print(
+            "Trend: IMPROVING"
+        )
+
+    elif trendChange < 0:
+
+        print(
+            "Trend: DETERIORATING"
+        )
+
+    else:
+
+        print(
+            "Trend: STABLE"
+        )
+
+else:
+
+    print(
+        "Not enough history for trend analysis."
+    )
+

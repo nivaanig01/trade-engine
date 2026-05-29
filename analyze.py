@@ -1295,13 +1295,13 @@ else:
 print("\nHEALTH HISTORY VISUALIZATION\n")
 
 plt.figure(
-    figsize=(12, 10)
+    figsize=(12, 15)
 )
 
 # Panel 1
 
 plt.subplot(
-    4,
+    5,
     1,
     1
 )
@@ -1320,7 +1320,7 @@ plt.grid()
 # Panel 2
 
 plt.subplot(
-    4,
+    5,
     1,
     2
 )
@@ -1339,7 +1339,7 @@ plt.grid()
 # Panel 3
 
 plt.subplot(
-    4,
+    5,
     1,
     3
 )
@@ -1358,7 +1358,7 @@ plt.grid()
 # Panel 4
 
 plt.subplot(
-    4,
+    5,
     1,
     4
 )
@@ -1385,6 +1385,34 @@ plt.bar(
 
 plt.title(
     "Live System Metrics"
+)
+
+plt.subplot(
+    5,
+    1,
+    5
+)
+
+plt.axis(
+    "off"
+)
+
+statusText = (
+    f"Market Regime: {regime}\n"
+    f"Strategy: {selectedStrategy}\n"
+    f"Trade Execution: {'ENABLED' if tradeAllowed else 'DISABLED'}\n"
+    f"Risk Shutdown: {'ACTIVE' if shutdownTriggered else 'INACTIVE'}"
+)
+
+plt.text(
+    0.05,
+    0.5,
+    statusText,
+    fontsize=12
+)
+
+plt.title(
+    "System Status Summary"
 )
 
 plt.grid()

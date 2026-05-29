@@ -1295,7 +1295,13 @@ else:
 print("\nHEALTH HISTORY VISUALIZATION\n")
 
 plt.figure(
-    figsize=(8, 4)
+    figsize=(12, 8)
+)
+
+plt.subplot(
+    3,
+    1,
+    1
 )
 
 plt.plot(
@@ -1307,15 +1313,42 @@ plt.title(
     "System Health History"
 )
 
-plt.xlabel(
-    "Snapshot"
+plt.grid()
+
+plt.subplot(
+    3,
+    1,
+    2
 )
 
-plt.ylabel(
-    "Health Score"
+plt.plot(
+    [portfolioValue],
+    marker="o"
+)
+
+plt.title(
+    "Current Portfolio Value"
 )
 
 plt.grid()
 
-plt.show()
+plt.subplot(
+    3,
+    1,
+    3
+)
 
+plt.hist(
+    healthHistory["HealthScore"],
+    bins=10
+)
+
+plt.title(
+    "Health Score Distribution"
+)
+
+plt.grid()
+
+plt.tight_layout()
+
+plt.show()

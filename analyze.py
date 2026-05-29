@@ -1295,11 +1295,13 @@ else:
 print("\nHEALTH HISTORY VISUALIZATION\n")
 
 plt.figure(
-    figsize=(12, 8)
+    figsize=(12, 10)
 )
 
+# Panel 1
+
 plt.subplot(
-    3,
+    4,
     1,
     1
 )
@@ -1315,15 +1317,17 @@ plt.title(
 
 plt.grid()
 
+# Panel 2
+
 plt.subplot(
-    3,
+    4,
     1,
     2
 )
 
-plt.plot(
-    [portfolioValue],
-    marker="o"
+plt.bar(
+    ["Portfolio"],
+    [portfolioValue]
 )
 
 plt.title(
@@ -1332,8 +1336,10 @@ plt.title(
 
 plt.grid()
 
+# Panel 3
+
 plt.subplot(
-    3,
+    4,
     1,
     3
 )
@@ -1345,6 +1351,40 @@ plt.hist(
 
 plt.title(
     "Health Score Distribution"
+)
+
+plt.grid()
+
+# Panel 4
+
+plt.subplot(
+    4,
+    1,
+    4
+)
+
+statusValues = [
+    healthScore,
+    averageVolatility,
+    max(
+        sharpeRatio,
+        0
+    )
+]
+
+statusLabels = [
+    "Health",
+    "Volatility",
+    "Sharpe"
+]
+
+plt.bar(
+    statusLabels,
+    statusValues
+)
+
+plt.title(
+    "Live System Metrics"
 )
 
 plt.grid()

@@ -1311,7 +1311,10 @@ statusText = (
     f"Market Regime: {regime}\n"
     f"Strategy: {selectedStrategy}\n"
     f"Trade Execution: {'ENABLED' if tradeAllowed else 'DISABLED'}\n"
-    f"Risk Shutdown: {'ACTIVE' if shutdownTriggered else 'INACTIVE'}"
+    f"Risk Shutdown: {'ACTIVE' if shutdownTriggered else 'INACTIVE'}\n\n"
+    f"Portfolio Value: {round(portfolioValue,2)}\n"
+    f"Cash Balance: {round(cashBalance,2)}\n"
+    f"Shares Owned: {sharesOwned}"
 )
 
 fig = plt.figure(

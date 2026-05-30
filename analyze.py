@@ -5,6 +5,7 @@ import time
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
+from matplotlib.gridspec import GridSpec
 
 df = pd.read_csv("trades.csv")
 
@@ -1294,82 +1295,10 @@ else:
 
 print("\nHEALTH HISTORY VISUALIZATION\n")
 
-plt.figure(
-    figsize=(12, 15)
-)
-
-# Panel 1
-
-plt.subplot(
-    5,
-    1,
-    1
-)
-
-plt.plot(
-    healthHistory["HealthScore"],
-    marker="o"
-)
-
-plt.title(
-    "System Health History"
-)
-
-plt.grid()
-
-# Panel 2
-
-plt.subplot(
-    5,
-    1,
-    2
-)
-
-plt.bar(
-    ["Portfolio"],
-    [portfolioValue]
-)
-
-plt.title(
-    "Current Portfolio Value"
-)
-
-plt.grid()
-
-# Panel 3
-
-plt.subplot(
-    5,
-    1,
-    3
-)
-
-plt.hist(
-    healthHistory["HealthScore"],
-    bins=10
-)
-
-plt.title(
-    "Health Score Distribution"
-)
-
-plt.grid()
-
-# Panel 4
-
-plt.subplot(
-    5,
-    1,
-    4
-)
-
 statusValues = [
     healthScore,
     averageVolatility,
-    max(
-        sharpeRatio,
-        0
-    )
+    max(sharpeRatio, 0)
 ]
 
 statusLabels = [
@@ -1377,6 +1306,63 @@ statusLabels = [
     "Volatility",
     "Sharpe"
 ]
+
+statusText = (
+    f"Market Regime: {regime}\n"
+    f"Strategy: {selectedStrategy}\n"
+    f"Trade Execution: {'ENABLED' if tradeAllowed else 'DISABLED'}\n"
+    f"Risk Shutdown: {'ACTIVE' if shutdownTriggered else 'INACTIVE'}"
+)
+
+fig = plt.figure(
+    figsize=(12, 8)
+)
+
+gs = GridSpec(
+    3,
+    2,
+    figure=fig
+)
+
+# Health History
+
+ax1 = fig.add_subplot(
+    gs[0, :]
+)
+
+ax1.plot(
+    healthHistory["HealthScore"],
+    marker="o"
+)
+
+ax1.set_title(
+    "System Health History"
+)
+
+ax1.grid()
+
+# Distribution
+
+ax2 = fig.add_subplot(
+    gs[1, :]
+)
+
+ax2.hist(
+    healthHistory["HealthScore"],
+    bins=10
+)
+
+ax2.set_title(
+    "Health Score Distribution"
+)
+
+ax2.grid()
+
+# Live Metrics
+
+ax3 = fig.add_subplot(
+    gs[2, 0]
+)
 
 barColors = []
 
@@ -1400,45 +1386,38 @@ for value in statusValues:
             "red"
         )
 
-plt.bar(
+ax3.bar(
     statusLabels,
     statusValues,
     color=barColors
 )
 
-plt.title(
-    "Live System Metrics"
+ax3.set_title(
+    "Live Metrics"
 )
 
-plt.subplot(
-    5,
-    1,
-    5
+ax3.grid()
+
+# Status Summary
+
+ax4 = fig.add_subplot(
+    gs[2, 1]
 )
 
-plt.axis(
+ax4.axis(
     "off"
 )
 
-statusText = (
-    f"Market Regime: {regime}\n"
-    f"Strategy: {selectedStrategy}\n"
-    f"Trade Execution: {'ENABLED' if tradeAllowed else 'DISABLED'}\n"
-    f"Risk Shutdown: {'ACTIVE' if shutdownTriggered else 'INACTIVE'}"
-)
-
-plt.text(
+ax4.text(
     0.05,
     0.5,
     statusText,
-    fontsize=12
+    fontsize=11
 )
 
-plt.title(
-    "System Status Summary"
+ax4.set_title(
+    "System Status"
 )
-
-plt.grid()
 
 plt.tight_layout()
 

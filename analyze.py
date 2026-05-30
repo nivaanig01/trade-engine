@@ -1378,9 +1378,32 @@ statusLabels = [
     "Sharpe"
 ]
 
+barColors = []
+
+for value in statusValues:
+
+    if value >= 70:
+
+        barColors.append(
+            "green"
+        )
+
+    elif value >= 30:
+
+        barColors.append(
+            "orange"
+        )
+
+    else:
+
+        barColors.append(
+            "red"
+        )
+
 plt.bar(
     statusLabels,
-    statusValues
+    statusValues,
+    color=barColors
 )
 
 plt.title(

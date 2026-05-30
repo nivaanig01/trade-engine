@@ -1233,6 +1233,41 @@ print(
     len(healthHistory)
 )
 
+try:
+
+    portfolioHistory = pd.read_csv(
+        "portfolio_history.csv"
+    )
+
+except:
+
+    portfolioHistory = pd.DataFrame(
+        columns=[
+            "PortfolioValue"
+        ]
+    )
+
+newPortfolio = pd.DataFrame(
+    {
+        "PortfolioValue": [
+            portfolioValue
+        ]
+    }
+)
+
+portfolioHistory = pd.concat(
+    [
+        portfolioHistory,
+        newPortfolio
+    ],
+    ignore_index=True
+)
+
+portfolioHistory.to_csv(
+    "portfolio_history.csv",
+    index=False
+)
+
 print("\nHEALTH TREND ANALYSIS\n")
 
 if len(healthHistory) >= 2:
@@ -1346,17 +1381,21 @@ ax1.grid()
 
 # Distribution
 
+# Portfolio Value History
+
 ax2 = fig.add_subplot(
     gs[1, :]
 )
 
-ax2.hist(
-    healthHistory["HealthScore"],
-    bins=10
+ax2.plot(
+    portfolioHistory[
+        "PortfolioValue"
+    ],
+    marker="o"
 )
 
 ax2.set_title(
-    "Health Score Distribution"
+    "Portfolio Value History"
 )
 
 ax2.grid()

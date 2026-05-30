@@ -1413,13 +1413,18 @@ ax4.axis(
 
 ax4.text(
     0.05,
-    0.5,
+    0.25,
     statusText,
-    fontsize=11
+    fontsize=11,
+    bbox=dict(
+        boxstyle="round",
+        facecolor="lightgray",
+        alpha=0.5
+    )
 )
 
 ax4.set_title(
-    "System Status"
+    "System Status & Portfolio Summary"
 )
 
 plt.tight_layout()

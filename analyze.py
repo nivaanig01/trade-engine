@@ -1317,6 +1317,18 @@ else:
 
     portfolioGrowth = 0
 
+if portfolioGrowth > 5:
+
+    portfolioStatus = "PROFITABLE"
+
+elif portfolioGrowth > -5:
+
+    portfolioStatus = "BREAKEVEN"
+
+else:
+
+    portfolioStatus = "LOSING"    
+
 print("\nHEALTH TREND ANALYSIS\n")
 
 if len(healthHistory) >= 2:
@@ -1399,6 +1411,7 @@ statusText = (
     f"Health Status: {healthStatus}\n"
     f"Portfolio Value: {round(portfolioValue,2)}\n"
     f"Portfolio Growth: {round(portfolioGrowth,2)}%\n"
+    f"Portfolio Status: {portfolioStatus}\n"
     f"Cash Balance: {round(cashBalance,2)}\n"
     f"Shares Owned: {sharesOwned}"
 )

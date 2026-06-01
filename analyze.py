@@ -1126,7 +1126,27 @@ elif healthScore >= 30:
 
 else:
 
-    healthStatus = "CRITICAL"    
+    healthStatus = "CRITICAL"  
+
+if (
+    healthStatus == "HEALTHY"
+    and
+    portfolioStatus == "PROFITABLE"
+):
+
+    executiveStatus = "EXCELLENT"
+
+elif (
+    healthStatus != "CRITICAL"
+    and
+    portfolioStatus != "LOSING"
+):
+
+    executiveStatus = "STABLE"
+
+else:
+
+    executiveStatus = "ATTENTION REQUIRED"      
 
 print(
     "System Health Score:",
@@ -1404,14 +1424,15 @@ statusLabels = [
 ]
 
 statusText = (
+    f"Executive Status: {executiveStatus}\n\n"
     f"Market Regime: {regime}\n"
     f"Strategy: {selectedStrategy}\n"
     f"Trade Execution: {'ENABLED' if tradeAllowed else 'DISABLED'}\n"
     f"Risk Shutdown: {'ACTIVE' if shutdownTriggered else 'INACTIVE'}\n\n"
-    f"Health Status: {healthStatus}\n"
+    f"Health Status: {healthStatus}\n\n"
     f"Portfolio Value: {round(portfolioValue,2)}\n"
     f"Portfolio Growth: {round(portfolioGrowth,2)}%\n"
-    f"Portfolio Status: {portfolioStatus}\n"
+    f"Portfolio Status: {portfolioStatus}\n\n"
     f"Cash Balance: {round(cashBalance,2)}\n"
     f"Shares Owned: {sharesOwned}"
 )

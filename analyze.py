@@ -1116,6 +1116,18 @@ if healthScore < 0:
 
     healthScore = 0
 
+if healthScore >= 70:
+
+    healthStatus = "HEALTHY"
+
+elif healthScore >= 30:
+
+    healthStatus = "WARNING"
+
+else:
+
+    healthStatus = "CRITICAL"    
+
 print(
     "System Health Score:",
     healthScore,
@@ -1384,6 +1396,7 @@ statusText = (
     f"Strategy: {selectedStrategy}\n"
     f"Trade Execution: {'ENABLED' if tradeAllowed else 'DISABLED'}\n"
     f"Risk Shutdown: {'ACTIVE' if shutdownTriggered else 'INACTIVE'}\n\n"
+    f"Health Status: {healthStatus}\n"
     f"Portfolio Value: {round(portfolioValue,2)}\n"
     f"Portfolio Growth: {round(portfolioGrowth,2)}%\n"
     f"Cash Balance: {round(cashBalance,2)}\n"
@@ -1492,7 +1505,7 @@ ax4.text(
     0.05,
     0.25,
     statusText,
-    fontsize=11,
+    fontsize=12,
     bbox=dict(
         boxstyle="round",
         facecolor="lightgray",

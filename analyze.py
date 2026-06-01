@@ -1083,25 +1083,34 @@ print("\nSYSTEM HEALTH SCORING ENGINE\n")
 
 healthScore = 100
 
-if averageVolatility > 50:
-
-    healthScore -= 20
+healthScore -= min(
+    averageVolatility / 2,
+    30
+)
 
 if sharpeRatio < 0:
 
-    healthScore -= 20
+    healthScore -= min(
+        abs(sharpeRatio) * 20,
+        20
+    )
 
 if shutdownTriggered:
 
-    healthScore -= 30
+    healthScore -= 15
 
 if not tradeAllowed:
 
-    healthScore -= 20
+    healthScore -= 10
 
 if positionSize < 300:
 
-    healthScore -= 10
+    healthScore -= 5
+
+healthScore = max(
+    0,
+    round(healthScore)
+)
 
 if healthScore < 0:
 

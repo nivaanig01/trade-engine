@@ -1268,6 +1268,34 @@ portfolioHistory.to_csv(
     index=False
 )
 
+if len(portfolioHistory) > 1:
+
+    initialPortfolio = (
+        portfolioHistory[
+            "PortfolioValue"
+        ].iloc[0]
+    )
+
+    latestPortfolio = (
+        portfolioHistory[
+            "PortfolioValue"
+        ].iloc[-1]
+    )
+
+    portfolioGrowth = (
+        (
+            latestPortfolio
+            -
+            initialPortfolio
+        )
+        /
+        initialPortfolio
+    ) * 100
+
+else:
+
+    portfolioGrowth = 0
+
 print("\nHEALTH TREND ANALYSIS\n")
 
 if len(healthHistory) >= 2:
@@ -1348,6 +1376,7 @@ statusText = (
     f"Trade Execution: {'ENABLED' if tradeAllowed else 'DISABLED'}\n"
     f"Risk Shutdown: {'ACTIVE' if shutdownTriggered else 'INACTIVE'}\n\n"
     f"Portfolio Value: {round(portfolioValue,2)}\n"
+    f"Portfolio Growth: {round(portfolioGrowth,2)}%\n"
     f"Cash Balance: {round(cashBalance,2)}\n"
     f"Shares Owned: {sharesOwned}"
 )
@@ -1469,4 +1498,3 @@ ax4.set_title(
 plt.tight_layout()
 
 plt.show()
-.

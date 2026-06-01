@@ -1370,6 +1370,18 @@ if len(healthHistory) >= 2:
         - firstHealth
     )
 
+    if trendChange > 0:
+
+         healthTrend = "IMPROVING"
+
+    elif trendChange < 0:
+
+        healthTrend = "DETERIORATING"
+
+    else:
+
+        healthTrend = "STABLE"
+
     print(
         "Initial Health:",
         firstHealth
@@ -1404,10 +1416,8 @@ if len(healthHistory) >= 2:
         )
 
 else:
-
-    print(
-        "Not enough history for trend analysis."
-    )
+        
+    print("Not enough history for trend analysis.")
 
 print("\nHEALTH HISTORY VISUALIZATION\n")
 
@@ -1429,7 +1439,8 @@ statusText = (
     f"Strategy: {selectedStrategy}\n"
     f"Trade Execution: {'ENABLED' if tradeAllowed else 'DISABLED'}\n"
     f"Risk Shutdown: {'ACTIVE' if shutdownTriggered else 'INACTIVE'}\n\n"
-    f"Health Status: {healthStatus}\n\n"
+    f"Health Status: {healthStatus}\n"
+    f"Health Trend: {healthTrend}\n\n"
     f"Portfolio Value: {round(portfolioValue,2)}\n"
     f"Portfolio Growth: {round(portfolioGrowth,2)}%\n"
     f"Portfolio Status: {portfolioStatus}\n\n"

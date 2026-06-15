@@ -1154,6 +1154,71 @@ print(
     "/ 100"
 )
 
+try:
+
+    executiveHistory = pd.read_csv(
+        "executive_history.csv"
+    )
+
+except:
+
+    executiveHistory = pd.DataFrame(
+        columns=[
+            "ExecutiveStatus"
+        ]
+    )
+
+newExecutive = pd.DataFrame(
+    {
+        "ExecutiveStatus": [
+            executiveStatus
+        ]
+    }
+)
+
+executiveHistory = pd.concat(
+    [
+        executiveHistory,
+        newExecutive
+    ],
+    ignore_index=True
+)
+
+executiveHistory.to_csv(
+    "executive_history.csv",
+    index=False
+)
+
+excellentCount = len(
+    executiveHistory[
+        executiveHistory[
+            "ExecutiveStatus"
+        ]
+        ==
+        "EXCELLENT"
+    ]
+)
+
+stableCount = len(
+    executiveHistory[
+        executiveHistory[
+            "ExecutiveStatus"
+        ]
+        ==
+        "STABLE"
+    ]
+)
+
+attentionCount = len(
+    executiveHistory[
+        executiveHistory[
+            "ExecutiveStatus"
+        ]
+        ==
+        "ATTENTION REQUIRED"
+    ]
+)
+
 if healthScore >= 80:
 
     healthStatus = "EXCELLENT"
@@ -1446,6 +1511,10 @@ statusText = (
     f"Portfolio Status: {portfolioStatus}\n\n"
     f"Cash Balance: {round(cashBalance,2)}\n"
     f"Shares Owned: {sharesOwned}"
+    f"\nExecutive History:\n"
+    f"Excellent: {excellentCount}\n"
+    f"Stable: {stableCount}\n"
+    f"Attention: {attentionCount}"
 )
 
 fig = plt.figure(

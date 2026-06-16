@@ -237,6 +237,7 @@ Order order = {
     price,
     quantity,
     isBuy,
+    false,
     id,
     symbol
 };
@@ -711,6 +712,15 @@ for (int i = 1; i <= n; i++) {
     cout << "\nEnter order type (B/S): ";
     cin >> type;
 
+    char executionType;
+
+cout << "Market or Limit (M/L): ";
+cin >> executionType;
+
+bool isMarketOrder =
+    (executionType == 'M' ||
+     executionType == 'm');
+
     cout << "Enter price: ";
     cin >> price;
 
@@ -719,7 +729,7 @@ for (int i = 1; i <= n; i++) {
 
     bool isBuy = (type == 'B' || type == 'b');
 
-    Order order = {i,price,quantity,isBuy,i,symbol};
+    Order order = {i,price,quantity,isBuy,isMarketOrder,i,symbol};
 
     if (type == 'B' || type == 'b') {
 

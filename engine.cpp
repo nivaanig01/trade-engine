@@ -46,9 +46,16 @@ void matchOrders(
         Order buy = buyOrders.top();
         Order sell = sellOrders.top();
 
-        if (buy.price < sell.price) {
-            break; // no match possible
-        }
+        bool marketMatch =
+    buy.isMarketOrder ||
+    sell.isMarketOrder;
+
+if (
+    !marketMatch &&
+    buy.price < sell.price
+) {
+    break;
+}
 
         // Remove top orders
         buyOrders.pop();

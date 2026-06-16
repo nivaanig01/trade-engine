@@ -9,6 +9,7 @@ struct Order {
     int price;
     int quantity;
     bool isBuy;
+    bool isMarketOrder;
     int timestamp;
     string symbol;
 };

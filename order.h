@@ -12,6 +12,7 @@ struct Order {
     bool isMarketOrder;
     int timestamp;
     string symbol;
+    string status;
 };
 
 #endif

@@ -239,7 +239,8 @@ Order order = {
     isBuy,
     false,
     id,
-    symbol
+    symbol,
+    "NEW"
 };
 
 OrderBook& orderBook =
@@ -729,7 +730,11 @@ bool isMarketOrder =
 
     bool isBuy = (type == 'B' || type == 'b');
 
-    Order order = {i,price,quantity,isBuy,isMarketOrder,i,symbol};
+    Order order = {i,price,quantity,isBuy,isMarketOrder,i,symbol,"NEW"};
+
+    cout << "Market Order Flag: "
+     << order.isMarketOrder
+     << endl;
 
     if (type == 'B' || type == 'b') {
 

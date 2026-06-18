@@ -81,6 +81,28 @@ priceHistory[buy.symbol]
 
 trades.push_back(trade);
 
+        // Update remaining quantity
+        buy.quantity -= tradeQty;
+        sell.quantity -= tradeQty;
+
+        if (buy.quantity == 0) {
+
+    buy.status = "FILLED";
+}
+else {
+
+    buy.status = "PARTIALLY_FILLED";
+}
+
+if (sell.quantity == 0) {
+
+    sell.status = "FILLED";
+}
+else {
+
+    sell.status = "PARTIALLY_FILLED";
+}
+
 cout << "\nTrade executed between BUY ID "
      << buy.id
      << " and SELL ID "
@@ -91,9 +113,13 @@ cout << "\nTrade executed between BUY ID "
      << sell.price
      << endl;
 
-        // Update remaining quantity
-        buy.quantity -= tradeQty;
-        sell.quantity -= tradeQty;
+     cout << "BUY STATUS: "
+     << buy.status
+     << endl;
+
+cout << "SELL STATUS: "
+     << sell.status
+     << endl;
 
         // Put back remaining orders
         if (buy.quantity > 0) {
